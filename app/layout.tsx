@@ -4,6 +4,8 @@ import localFont from 'next/font/local'
 import "./globals.css";
 import ThemeProvider from "@/contexts/Theme";
 import Navbar from "@/components/modules/navbar/Navbar";
+import Newsletter from "@/components/templates/Newsletter";
+import Footer from "@/components/modules/Footer";
 
 
 const arad = localFont({
@@ -64,8 +66,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
           <footer>
             <div className="bg-main-100 py-10 my-10 md:my-0 dark:bg-gray-800">
-              {/* <Newsletter /> */}
-              {/* <Footer /> */}
+              <Newsletter />
+              <Footer />
             </div>
           </footer>
         </ThemeProvider>
