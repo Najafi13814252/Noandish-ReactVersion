@@ -1,6 +1,6 @@
 import courses from "@/data/courses"
-import CardSlider from "../modules/CardSlider"
-import SectionHeaders from "../modules/SectionHeaders"
+import CardSlider from "@/components/modules/CardSlider"
+import SectionHeaders from "@/components/modules/SectionHeaders"
 
 import heartIcon from "@iconify-icons/solar/heart-bold"
 

@@ -4,7 +4,7 @@ import localFont from 'next/font/local'
 import "./globals.css";
 import ThemeProvider from "@/contexts/Theme";
 import Navbar from "@/components/modules/navbar/Navbar";
-import Newsletter from "@/components/templates/Newsletter";
+import Newsletter from "@/components/modules/Newsletter";
 import Footer from "@/components/modules/Footer";
 
 

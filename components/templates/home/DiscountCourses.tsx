@@ -1,6 +1,6 @@
 import courses from "@/data/courses"
-import CardSlider from "../modules/CardSlider"
-import SectionHeaders from "../modules/SectionHeaders"
+import CardSlider from "@/components/modules/CardSlider"
+import SectionHeaders from "@/components/modules/SectionHeaders"
 import discountIcon from "@iconify-icons/solar/sale-bold"
 
 function DiscountCourses() {
