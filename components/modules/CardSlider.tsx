@@ -27,7 +27,7 @@ function CardSlider({ courses }: { courses: courseType[] }) {
                 </button>
             </section>
 
-            <Swiper className="overflow-hidden h-full" slidesPerView={4.5} spaceBetween={16} slidesPerGroup={1} modules={[Navigation]}
+            <Swiper className="overflow-hidden h-full" slidesPerView={4.5} spaceBetween={24} slidesPerGroup={1} modules={[Navigation]}
                 navigation={{
                     nextEl: ".button-next-slide",
                     prevEl: ".button-prev-slide"

@@ -26,7 +26,7 @@ const Card: React.FC<courseType> = ({id ,src, title, lesson, members, duration, 
                     {/* عنوان دوره */}
                     <div className="flex items-center justify-between">
                         <p className="text-lg font-bold text-gray-800 dark:text-white">{title}</p>
-                        <Icon icon={saveIcon} className="text-lg text-main-100 hover:scale-125 duration-200" />
+                        <Icon icon={saveIcon} className="text-lg text-main-100 hover:scale-125 duration-200 cursor-pointer" />
                     </div>
 
                     {/* جزئیات دوره */}
