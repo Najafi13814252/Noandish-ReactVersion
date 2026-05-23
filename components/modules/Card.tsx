@@ -3,14 +3,13 @@ import saveIcon from '@iconify-icons/solar/bookmark-line-duotone'
 import bookIcon from '@iconify-icons/solar/notebook-minimalistic-line-duotone'
 import membersIcon from '@iconify-icons/solar/square-academic-cap-2-line-duotone'
 import clockIcon from '@iconify-icons/solar/clock-circle-line-duotone'
-import teacherIcon from '@iconify-icons/solar/user-line-duotone'
 import starIcon from '@iconify-icons/solar/star-bold-duotone'
 import Image from "next/image"
 import { courseType } from "@/data/courses"
 import React from "react"
 import Link from "next/link"
 
-const Card: React.FC<courseType> = ({id ,src, title, lesson, members, duration, teacher, rate, price, discount }) => {
+const Card: React.FC<courseType> = ({ id, src, title, lesson, members, duration, teacher, rate, price, discount }) => {
     return (
         <Link href={`/courses/${id}`}>
             <div className="mb-20 flex flex-col relative gap-2 border bg-white border-teal-200 rounded-2xl shadow-md shadow-teal-200 p-3 my-4 cursor-pointer transform transition-transform duration-200 hover:scale-105 dark:bg-gray-800 dark:border-gray-700 dark:shadow-gray-800">
@@ -47,20 +46,20 @@ const Card: React.FC<courseType> = ({id ,src, title, lesson, members, duration, 
                 </section>
 
                 {/* پروفایل معلم */}
-                <section className="flex justify-between mt-4">
-                    <div className="flex items-center gap-1">
-                        <Icon className="text-xl text-main-100 dark:text-gray-400" icon={teacherIcon} />
-                        <span className="text-sm text-gray-400">{teacher}</span>
+                <section className="flex justify-between mt-6 items-center">
+                    <div className="flex items-center gap-1.5 text-gray-400 hover:text-teal-500 duration-200">
+                        <img src="/images/person.webp" alt="teacher_profile" className="rounded-full w-7 h-7 object-cover"/>
+                        <span className="text-sm">{teacher}</span>
                     </div>
 
                     <div className="flex items-end">
-                        <div className="flex items-center gap-1 text-yellow-500">
-                            <div className="flex relative top-0.5">
-                                <span className="font-medium">{rate}</span>
-                            </div>
-                            <div className="flex">
-                                <Icon className="text-xl" icon={starIcon} />
-                            </div>
+                        <div className="flex flex-row-reverse">
+                            {new Array(Math.trunc(rate)).fill(0).map((_, index) => (
+                                <Icon key={index} className="text-xl text-yellow-400" icon={starIcon} />
+                            ))}
+                            {new Array(Math.floor(5 - Math.trunc(rate))).fill(0).map((_, index) => (
+                                <Icon key={index} className="text-xl text-gray-300" icon={starIcon} />
+                            ))}
                         </div>
                     </div>
                 </section>
