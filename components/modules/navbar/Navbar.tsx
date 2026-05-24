@@ -12,10 +12,14 @@ import searchIcon from '@iconify-icons/solar/magnifer-line-duotone'
 import loginIcon from '@iconify-icons/solar/login-line-duotone'
 import cartIcon from '@iconify-icons/solar/cart-5-line-duotone'
 import Image from "next/image";
+import Modal from "@/components/modals/Modal";
+import useModal from "@/hooks/useModal";
+import Register from "../Register";
 
 function Navbar() {
 
-    const {theme, toggleTheme} = useContext(ThemeContext)
+    const { theme, toggleTheme } = useContext(ThemeContext)
+    const { isOpen, openModal, closeModal } = useModal()
 
     return (
         <nav className="flex justify-between items-center border-b border-b-gray-300 md:px-10 px-2 py-1 bg-white z-40 sticky top-0 dark:bg-darkMode dark:border-gray-800">
@@ -32,7 +36,7 @@ function Navbar() {
                 {/* Category */}
                 <div className="relative">
                     <button className="hidden md:flex items-center gap-1 text-main-100 text-lg dark:text-main-200 cursor-pointer">
-                        <Icon icon={categoryIcon} className="text-2xl"/>
+                        <Icon icon={categoryIcon} className="text-2xl" />
                         دسته‌بندی‌ها
                     </button>
                     {/* <Categories className="absolute top-0 right-0" v-show="showCategories" /> */}
@@ -54,21 +58,27 @@ function Navbar() {
                 <button
                     className="p-2 text-main-100 border border-main-100 rounded-full flex cursor-pointer dark:text-main-200 dark:border-main-200"
                     onClick={toggleTheme}>
-                    <Icon className="text-2xl" icon={theme === 'light' ? darkIcon : lightIcon}/>
+                    <Icon className="text-2xl" icon={theme === 'light' ? darkIcon : lightIcon} />
                 </button>
 
                 {/* سبد خرید */}
                 <button
                     className="p-2 text-main-100 border border-main-100 rounded-full flex cursor-pointer dark:text-main-200 dark:border-main-200">
-                    <Icon className="text-2xl" icon={cartIcon}/>
+                    <Icon className="text-2xl" icon={cartIcon} />
                 </button>
 
                 {/* Register */}
                 <button
-                    className="md:flex items-center gap-1 p-2 text-main-100 rounded-xl border border-main-100 cursor-pointer dark:text-main-200 dark:border-main-200">
-                        <Icon icon={loginIcon} className="rotate-180 text-2xl"/>
+                    className="md:flex items-center gap-1 p-2 text-main-100 rounded-xl border border-main-100 cursor-pointer dark:text-main-200 dark:border-main-200"
+                    onClick={openModal}>
+                    <Icon icon={loginIcon} className="rotate-180 text-2xl" />
                     ورود | ثبت‌نام
                 </button>
+
+                <Modal isOpen={isOpen} onClose={closeModal}>
+                    <Register onSuccess={closeModal} />
+                </Modal>
+
 
                 {/* <Link href="/panel/my-courses">
                     <button

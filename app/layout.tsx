@@ -71,6 +71,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             </div>
           </footer>
         </ThemeProvider>
+
+          <div id="modal-root"></div>
       </body>
     </html>
   );
