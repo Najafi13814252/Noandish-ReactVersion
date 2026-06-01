@@ -3,7 +3,7 @@ import saveIcon from '@iconify-icons/solar/bookmark-line-duotone'
 import bookIcon from '@iconify-icons/solar/notebook-minimalistic-line-duotone'
 import membersIcon from '@iconify-icons/solar/square-academic-cap-2-line-duotone'
 import clockIcon from '@iconify-icons/solar/clock-circle-line-duotone'
-import starIcon from '@iconify-icons/solar/star-bold-duotone'
+import starIcon from '@iconify-icons/solar/star-bold'
 import Image from "next/image"
 import { courseType } from "@/data/courses"
 import React from "react"
@@ -48,18 +48,35 @@ const Card: React.FC<courseType> = ({ id, src, title, lesson, members, duration,
                 {/* پروفایل معلم */}
                 <section className="flex justify-between mt-6 items-center">
                     <div className="flex items-center gap-1.5 text-gray-400 hover:text-teal-500 duration-200">
-                        <img src="/images/person.webp" alt="teacher_profile" className="rounded-full w-7 h-7 object-cover"/>
+                        <img src="/images/person.webp" alt="teacher_profile" className="rounded-full w-7 h-7 object-cover" />
                         <span className="text-sm">{teacher}</span>
                     </div>
 
-                    <div className="flex items-end">
-                        <div className="flex flex-row-reverse">
-                            {new Array(Math.trunc(rate)).fill(0).map((_, index) => (
-                                <Icon key={index} className="text-xl text-yellow-400" icon={starIcon} />
-                            ))}
-                            {new Array(Math.floor(5 - Math.trunc(rate))).fill(0).map((_, index) => (
-                                <Icon key={index} className="text-xl text-gray-300" icon={starIcon} />
-                            ))}
+                    <div className="flex gap-1">
+                        <p className="text-gray-500 text-sm relative top-[0.5px]">({rate})</p>
+                        <div className="flex flex-row-reverse items-end">
+                            {Array.from({ length: 5 }).map((_, index) => {
+                                const fill = Math.max(0, Math.min(1, Number(rate) - index))
+
+                                return (
+                                    <div key={index} className="relative" dir="ltr">
+                                        <Icon
+                                            icon={starIcon}
+                                            className="text-xl text-gray-300"
+                                        />
+
+                                        <div
+                                            className="absolute inset-0 overflow-hidden"
+                                            style={{ width: `${fill * 100}%` }}
+                                        >
+                                            <Icon
+                                                icon={starIcon}
+                                                className="text-xl text-yellow-400"
+                                            />
+                                        </div>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                 </section>
