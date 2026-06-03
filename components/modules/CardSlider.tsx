@@ -6,10 +6,11 @@ import Card from "./Card";
 import { Swiper, SwiperSlide } from "swiper/react"
 import { useState } from "react";
 import { Navigation } from "swiper/modules";
-import { courseType } from "@/data/courses";
+import { courseType } from '@/types/course';
 import { Icon } from '@iconify/react';
 
 import directionIcon from "@iconify-icons/solar/alt-arrow-right-outline"
+
 
 
 function CardSlider({ courses }: { courses: courseType[] }) {

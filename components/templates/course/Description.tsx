@@ -1,19 +1,10 @@
 import { Icon } from "@iconify/react"
-import checkIcon from '@iconify-icons/solar/check-read-linear'
+import checkIcon from '@iconify-icons/solar/check-circle-linear'
 import fileIcon from '@iconify-icons/solar/file-text-line-duotone'
+import closeIcon from '@iconify-icons/solar/close-circle-linear'
 
-type DescriptionType = {
-    id: number
-    title: string
-}
 
-const prerequisites: DescriptionType[] = [
-    { id: 1, title: 'دوره تصویری آموزش HTML به زبان فارسی' },
-    { id: 2, title: 'دوره تصویری آموزش PHP به زبان فارسی' },
-    { id: 3, title: 'آشنایی نسبی با MySQL' }
-]
-
-function Description() {
+function Description({ prerequisites }: { prerequisites: string[] }) {
     return (
         <div className="text-gray-800">
             <div className="flex flex-col gap-4 border border-gray-200 bg-white px-4 py-6 rounded-lg dark:bg-darkMode dark:text-white dark:border-gray-800">
@@ -36,12 +27,21 @@ function Description() {
 
                 {/* prerequisites */}
                 <div className="flex flex-col gap-2">
-                    <span className="text-xl">پیشنیازهای دوره</span>
+                    <span className="text-xl font-medium mb-2">پیش‌نیازهای دوره</span>
                     <div className="flex flex-col gap-3">
-                        {prerequisites.map(check => (
-                            <div key={check.id} className="flex items-center gap-1">
-                                <Icon className="text-lg text-sky-500" icon={checkIcon} />
-                                <span className="font-medium">{check.title}</span>
+                        {prerequisites.map((check, index) => (
+                            <div key={index} className="flex items-center gap-2">
+                                {check !== null ? (
+                                    <>
+                                        <Icon className="text-lg text-sky-600" icon={checkIcon} />
+                                        <span className="font-medium">{check}</span>
+                                    </>
+                                ) : (
+                                    <div className="flex items-center gap-2">
+                                        <Icon className="text-lg text-red-500" icon={closeIcon} />
+                                        <p className="text-lg font-medium">ندارد</p>
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>

@@ -1,9 +1,12 @@
 import CardSlider from "@/components/modules/CardSlider"
 import SectionHeaders from "@/components/modules/SectionHeaders"
-import courses from "@/data/courses"
+import { apiFetch } from "@/services/api"
+import { courseType } from "@/types/course"
 import fireIcon from "@iconify-icons/solar/fire-bold"
 
-function FreeCourses() {
+async function FreeCourses() {
+    const res = await apiFetch('/courses')
+    const courses: courseType[] = await res.json()
 
     const filterCourses = courses.filter(course => course.discount === 100)
 

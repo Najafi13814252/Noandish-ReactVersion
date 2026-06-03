@@ -5,10 +5,11 @@ import Description from './Description';
 import Headings from './Headings';
 import Comments from './Comments';
 import AboutTeacher from './AboutTeacher';
+import { courseType } from '@/types/course';
 
 type SectionId = 'description' | 'headings' | 'comments' | 'aboutTeacher';
 
-const CourseContent = () => {
+const CourseContent = ({course}: {course: courseType}) => {
     const [active, setActive] = useState<SectionId>('description');
 
     const descriptionRef = useRef<HTMLElement>(null);
@@ -90,11 +91,11 @@ const CourseContent = () => {
 
             <div className="flex flex-col gap-6 scroll-smooth">
                 <section id="description" ref={descriptionRef} className="scroll-mt-40">
-                    <Description />
+                    <Description prerequisites={course.prerequisites}/>
                 </section>
 
                 <section id="headings" ref={headingsRef} className="scroll-mt-40">
-                    <Headings />
+                    <Headings courseId={course.id}/>
                 </section>
 
                 <section id="comments" ref={commentsRef} className="scroll-mt-40">
@@ -102,7 +103,7 @@ const CourseContent = () => {
                 </section>
 
                 <section id="aboutTeacher" ref={aboutTeacherRef} className="scroll-mt-40">
-                    <AboutTeacher />
+                    <AboutTeacher courseId={course.id}/>
                 </section>
             </div>
         </>

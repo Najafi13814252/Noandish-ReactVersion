@@ -5,11 +5,11 @@ import membersIcon from '@iconify-icons/solar/square-academic-cap-2-line-duotone
 import clockIcon from '@iconify-icons/solar/clock-circle-line-duotone'
 import starIcon from '@iconify-icons/solar/star-bold'
 import Image from "next/image"
-import { courseType } from "@/data/courses"
+import { courseType } from "@/types/course"
 import React from "react"
 import Link from "next/link"
 
-const Card: React.FC<courseType> = ({ id, src, title, lesson, members, duration, teacher, rate, price, discount }) => {
+const Card: React.FC<courseType> = ({ id, image_url, title, lessons, members, duration, teacher_name, points, price, discount }) => {
     return (
         <Link href={`/courses/${id}`}>
             <div className="mb-20 flex flex-col relative gap-2 border bg-white border-teal-200 rounded-2xl shadow-md shadow-teal-200 p-3 my-4 cursor-pointer transform transition-transform duration-200 hover:scale-105 dark:bg-gray-800 dark:border-gray-700 dark:shadow-gray-800">
@@ -19,7 +19,7 @@ const Card: React.FC<courseType> = ({ id, src, title, lesson, members, duration,
             </button> */}
 
                 {/* عکس دوره */}
-                <Image src={src} width={400} height={250} className="w-full h-40 object-cover rounded-lg border border-gray-200" loading="lazy" alt="Course_Image" />
+                <Image src={image_url || '/images/img-1.webp'} width={400} height={250} className="w-full h-40 object-cover rounded-lg border border-gray-200" loading="lazy" alt="Course_Image" />
 
                 <section className="flex flex-col gap-7">
                     {/* عنوان دوره */}
@@ -32,31 +32,31 @@ const Card: React.FC<courseType> = ({ id, src, title, lesson, members, duration,
                     <div className="flex gap-5 text-gray-500 text-sm font-medium h-2">
                         <div className="flex items-center gap-1.5 whitespace-nowrap dark:text-gray-50">
                             <Icon className="text-sky-500 text-xl" icon={bookIcon} />
-                            <p>{lesson} درس</p>
+                            <p>{lessons} درس</p>
                         </div>
                         <div className="flex items-center gap-1.5 whitespace-nowrap dark:text-gray-50">
                             <Icon className="text-green-500 text-xl" icon={membersIcon} />
                             <p>{members} دانشجو</p>
                         </div>
-                        <div className="flex items-center gap-1.5 dark:text-gray-50">
+                        <div className="flex items-center gap-1.5 dark:text-gray-50 whitespace-nowrap">
                             <Icon className="text-pink-500 text-xl" icon={clockIcon} />
-                            <p className="">+{duration} ساعت</p>
+                            <p className="">{duration} ساعت</p>
                         </div>
                     </div>
                 </section>
 
                 {/* پروفایل معلم */}
                 <section className="flex justify-between mt-6 items-center">
-                    <div className="flex items-center gap-1.5 text-gray-400 hover:text-teal-500 duration-200">
+                    <div className="flex items-center gap-1.5 text-gray-500 hover:text-teal-500 duration-200">
                         <img src="/images/person.webp" alt="teacher_profile" className="rounded-full w-7 h-7 object-cover" />
-                        <span className="text-sm">{teacher}</span>
+                        <span className="text-sm">{teacher_name}</span>
                     </div>
 
                     <div className="flex gap-1">
-                        <p className="text-gray-500 text-sm relative top-[0.5px]">({rate})</p>
+                        <p className="text-gray-500 text-sm relative top-[0.5px]">({points})</p>
                         <div className="flex flex-row-reverse items-end">
                             {Array.from({ length: 5 }).map((_, index) => {
-                                const fill = Math.max(0, Math.min(1, Number(rate) - index))
+                                const fill = Math.max(0, Math.min(1, Number(points) - index))
 
                                 return (
                                     <div key={index} className="relative" dir="ltr">

@@ -10,7 +10,7 @@ export type courseType = {
     price: number,
     discount: number,
     level: string,
-    prerequisite: string,
+    prerequisites: string[],
     teacher_name: string,
     teacher_avatar: string
 }
