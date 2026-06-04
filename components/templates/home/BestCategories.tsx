@@ -1,4 +1,4 @@
-import categories from "@/data/categories"
+import bestCategories from "@/data/categories"
 import { Icon } from "@iconify/react"
 
 
@@ -12,7 +12,7 @@ function BestCategories() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto gap-10">
-            {categories.map(category => (
+            {bestCategories.map(category => (
                 <div key={category.id} className="flex items-center gap-4 bg-white border border-gray-300 rounded-lg p-2 group cursor-pointer hover:scale-110 hover:border-main-100 hover:shadow-lg duration-200 dark:bg-gray-800 dark:border-gray-600" v-for="category in categories">
                 <div className="bg-gray-100 flex items-center p-4 rounded-full group-hover:bg-main-100 dark:bg-gray-700">
                     <Icon className="text-3xl text-main-100 group-hover:text-white dark:text-white" icon={category.icon} />

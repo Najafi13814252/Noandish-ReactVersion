@@ -33,3 +33,15 @@
 .navigation-swiper-slider {
     @apply hidden p-1 rounded-full md:flex items-center justify-center transition-all duration-300 cursor-pointer
 }
+
+.filterSection-label-checkbox {
+    @apply w-4 h-4 border rounded-xs outline-none cursor-pointer
+}
+
+.filterSection-input-checkbox {
+    @apply select-none ms-2 text-sm font-medium  cursor-pointer
+}
+
+.link-sort-section {
+    @apply cursor-pointer hover:bg-main-100/10 px-2 py-1 rounded-md duration-200
+}

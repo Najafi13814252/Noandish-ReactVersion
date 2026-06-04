@@ -10,7 +10,7 @@ type SectionHeadersProps = {
 
 function SectionHeaders({title, iconName, iconColor}: SectionHeadersProps) {
     return (
-        <section className="flex items-center justify-between mx-3 md:mx-5">
+        <section className="flex items-center justify-between mx-3 md:mx-5 mb-3">
             <div className="flex gap-9 md:gap-12">
                 <div className="relative bottom-1 md:bottom-3 rotate-6">
                     <Icon className="absolute text-[#9AC1C3] text-4xl md:text-5xl dark:text-white" icon={headerIcon} />

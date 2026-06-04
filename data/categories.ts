@@ -16,7 +16,7 @@ type CategoriesType = {
     course_number: number
 }
 
-const categories: CategoriesType[] = [
+const bestCategories: CategoriesType[] = [
     { id: 1, title: 'مدیریت حرفه‌ای', icon: caseIcon, course_number: 109 },
     { id: 2, title: 'توسعه فردی', icon: levelIcon, course_number: 86 },
     { id: 3, title: 'مهارت‌های نرم', icon: groupIcon, course_number: 45 },
@@ -27,4 +27,4 @@ const categories: CategoriesType[] = [
     { id: 8, title: 'ارتباط موثر', icon: dialogIcon, course_number: 57 }
 ]
 
-export default categories
+export default bestCategories

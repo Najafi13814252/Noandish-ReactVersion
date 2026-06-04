@@ -12,7 +12,7 @@ import Link from "next/link"
 const Card: React.FC<courseType> = ({ id, image_url, title, lessons, members, duration, teacher_name, points, price, discount }) => {
     return (
         <Link href={`/courses/${id}`}>
-            <div className="mb-20 flex flex-col relative gap-2 border bg-white border-teal-200 rounded-2xl shadow-md shadow-teal-200 p-3 my-4 cursor-pointer transform transition-transform duration-200 hover:scale-105 dark:bg-gray-800 dark:border-gray-700 dark:shadow-gray-800">
+            <div className="max-w-xs flex flex-col relative gap-2 border bg-white border-teal-200 rounded-2xl shadow-md shadow-teal-200 p-3 cursor-pointer transform transition-transform duration-200 hover:scale-105 dark:bg-gray-800 dark:border-gray-700 dark:shadow-gray-800">
                 {/* ذخیره دوره */}
                 {/* <button className="absolute right-6 top-6 text-main-100 bg-white rounded-full flex items-center p-1 shadow opacity-85 hover:scale-110 duration-200">
                 <Icon icon={saveIcon} className="text-xl" />
@@ -29,16 +29,16 @@ const Card: React.FC<courseType> = ({ id, image_url, title, lessons, members, du
                     </div>
 
                     {/* جزئیات دوره */}
-                    <div className="flex gap-5 text-gray-500 text-sm font-medium h-2">
-                        <div className="flex items-center gap-1.5 whitespace-nowrap dark:text-gray-50">
+                    <div className="flex justify-between gap-2 text-gray-500 text-sm font-medium h-2">
+                        <div className="flex items-center gap-1 whitespace-nowrap dark:text-gray-50">
                             <Icon className="text-sky-500 text-xl" icon={bookIcon} />
                             <p>{lessons} درس</p>
                         </div>
-                        <div className="flex items-center gap-1.5 whitespace-nowrap dark:text-gray-50">
+                        <div className="flex items-center gap-1 whitespace-nowrap dark:text-gray-50">
                             <Icon className="text-green-500 text-xl" icon={membersIcon} />
                             <p>{members} دانشجو</p>
                         </div>
-                        <div className="flex items-center gap-1.5 dark:text-gray-50 whitespace-nowrap">
+                        <div className="flex items-center gap-1 dark:text-gray-50 whitespace-nowrap">
                             <Icon className="text-pink-500 text-xl" icon={clockIcon} />
                             <p className="">{duration} ساعت</p>
                         </div>

@@ -3,7 +3,7 @@
 import { ThemeContext } from "@/contexts/Theme";
 import { Icon } from "@iconify/react";
 import Link from "next/link"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 
 import categoryIcon from '@iconify-icons/solar/widget-2-line-duotone'
 import darkIcon from '@iconify-icons/solar/moon-bold-duotone'
@@ -15,10 +15,12 @@ import Image from "next/image";
 import Modal from "@/components/modals/Modal";
 import useModal from "@/hooks/useModal";
 import Register from "../Register";
+import Categories from "../Categories";
 
 function Navbar() {
 
     const { theme, toggleTheme } = useContext(ThemeContext)
+    const [showCategories, setShowCategories] = useState(false)
     const { isOpen, openModal, closeModal } = useModal()
 
     return (
@@ -35,11 +37,15 @@ function Navbar() {
 
                 {/* Category */}
                 <div className="relative">
-                    <button className="hidden md:flex items-center gap-1 text-main-100 text-lg dark:text-main-200 cursor-pointer">
+                    <button className="hidden md:flex items-center gap-1 text-main-100 text-lg dark:text-main-200 cursor-pointer" onClick={() => setShowCategories(!showCategories)}>
                         <Icon icon={categoryIcon} className="text-2xl" />
                         دسته‌بندی‌ها
                     </button>
-                    {/* <Categories className="absolute top-0 right-0" v-show="showCategories" /> */}
+                    {showCategories && (
+                        <div className="absolute top-full right-0">
+                            <Categories />
+                        </div>
+                    )}
                 </div>
 
                 {/* Search Box */}
