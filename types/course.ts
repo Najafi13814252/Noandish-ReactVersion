@@ -13,4 +13,5 @@ export type courseType = {
     prerequisites: string[],
     teacher_name: string,
     teacher_avatar: string
+    category_name: string
 }

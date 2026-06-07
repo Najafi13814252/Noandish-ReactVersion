@@ -8,13 +8,20 @@ import { useEffect, useState } from "react"
 
 function AboutTeacher({ courseId }: { courseId: number }) {
 
-    const [teacher , setTeacher] = useState<CourseTeacherType | null>(null)
+    const [teacher, setTeacher] = useState<CourseTeacherType | null>(null)
 
     useEffect(() => {
-                apiFetch(`/courses/${courseId}/teacher`)
-                .then(res => res.json())
-                .then(data => setTeacher(data))
-            }, [courseId])
+        const fetchContent = async () => {
+            try {
+                const data = await apiFetch(`/courses/${courseId}/teacher`)
+                setTeacher(data)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        fetchContent()
+    }, [courseId])
     return (
         <div className="border border-gray-200 bg-white p-4 rounded-lg text-gray-800 dark:bg-darkMode dark:text-white dark:border-gray-800">
             <div className="flex flex-col md:flex-row items-center gap-10">

@@ -7,7 +7,8 @@ import Comments from './Comments';
 import AboutTeacher from './AboutTeacher';
 import { courseType } from '@/types/course';
 
-type SectionId = 'description' | 'headings' | 'comments' | 'aboutTeacher';
+// type SectionId = 'description' | 'headings' | 'comments' | 'aboutTeacher';
+type SectionId = 'description' | 'headings' | 'aboutTeacher';
 
 const CourseContent = ({course}: {course: courseType}) => {
     const [active, setActive] = useState<SectionId>('description');
@@ -20,7 +21,7 @@ const CourseContent = ({course}: {course: courseType}) => {
     const sectionRefs: Record<SectionId, React.RefObject<HTMLElement | null>> = {
         description: descriptionRef,
         headings: headingsRef,
-        comments: commentsRef,
+        // comments: commentsRef,
         aboutTeacher: aboutTeacherRef,
     };
 
@@ -65,7 +66,7 @@ const CourseContent = ({course}: {course: courseType}) => {
     const navItems: { id: SectionId; label: string }[] = [
         { id: 'description', label: 'توضیحات' },
         { id: 'headings', label: 'سرفصل‌ها' },
-        { id: 'comments', label: 'نظرات' },
+        // { id: 'comments', label: 'نظرات' },
         { id: 'aboutTeacher', label: 'درباره مدرس' },
     ];
 
@@ -98,9 +99,9 @@ const CourseContent = ({course}: {course: courseType}) => {
                     <Headings courseId={course.id}/>
                 </section>
 
-                <section id="comments" ref={commentsRef} className="scroll-mt-40">
+                {/* <section id="comments" ref={commentsRef} className="scroll-mt-40">
                     <Comments />
-                </section>
+                </section> */}
 
                 <section id="aboutTeacher" ref={aboutTeacherRef} className="scroll-mt-40">
                     <AboutTeacher courseId={course.id}/>

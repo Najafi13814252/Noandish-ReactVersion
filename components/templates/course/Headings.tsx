@@ -10,15 +10,21 @@ import { useEffect, useState } from "react"
 import { apiFetch } from "@/services/api"
 import { CourseContentsType } from "@/types/course-contents"
 
-function Headings({courseId}: {courseId: number}) {
+function Headings({ courseId }: { courseId: number }) {
     const [openHeading, setOpenHeading] = useState<null | number>(null)
     const [courseContents, setCourseContents] = useState<CourseContentsType[] | []>([]);
 
     useEffect(() => {
-            apiFetch(`/courses/${courseId}/content`)
-            .then(res => res.json())
-            .then(data => setCourseContents(data))
-        }, [courseId])
+        const fetchContent = async () => {
+            try {
+                const data = await apiFetch(`/courses/${courseId}/content`)
+                setCourseContents(data)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        fetchContent()
+    }, [courseId])
 
     const toggle = (index: number) => {
         setOpenHeading(openHeading === index ? null : index)

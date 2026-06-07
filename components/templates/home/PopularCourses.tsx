@@ -6,8 +6,7 @@ import { courseType } from "@/types/course"
 import heartIcon from "@iconify-icons/solar/heart-bold"
 
 async function PopularCourses() {
-  const res = await apiFetch('/courses')
-  const courses: courseType[] = await res.json()
+  const courses: courseType[] = await apiFetch('/courses')
 
   const filterCourses = courses.filter(course => course.discount === 0)
 

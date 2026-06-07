@@ -5,8 +5,7 @@ import { courseType } from "@/types/course"
 import discountIcon from "@iconify-icons/solar/sale-bold"
 
 async function DiscountCourses() {
-    const res = await apiFetch('/courses')
-    const courses: courseType[] = await res.json()
+    const courses: courseType[] = await apiFetch('/courses')
 
     const filterCourses = courses.filter(course => course.discount !== 0 && course.discount !== 100)
 

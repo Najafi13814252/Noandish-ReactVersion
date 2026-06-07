@@ -6,8 +6,7 @@ import { courseType } from "@/types/course"
 
 async function Course({ params }: { params: Promise<{ id: number }> }) {
   const { id } = await params
-  const res = await apiFetch(`/courses/${id}`)
-  const course: courseType = await res.json()
+  const course: courseType = await apiFetch(`/courses/${id}`)
 
   return (
     <section className="px-2 md:px-0 mx-0 md:mx-10 flex flex-col gap-6 my-10 w-full md:w-fit">

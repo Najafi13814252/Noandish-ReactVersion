@@ -1,5 +1,6 @@
 'use client';
 
+import { useAuth } from '@/hooks/useAuth';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
@@ -14,6 +15,7 @@ const Register = ({ onSuccess }: LoginProps) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const { login, signup } = useAuth()
 
     const titleForm = isLoginMode ? 'ورود' : 'ثبت‌نام';
     const descriptionForm = isLoginMode
@@ -32,9 +34,20 @@ const Register = ({ onSuccess }: LoginProps) => {
             return;
         }
 
-        // TODO: اتصال به استور احراز هویت
-        // const userStore = useUserStore();
-        // userStore.login(username, password);
+        if (isLoginMode) {
+            await login({
+                identifier: username,
+                password,
+            });
+        } else {
+            await signup({
+                username,
+                password,
+                firstname: 'test',
+                lastname: 'test',
+                email: 'test@test.com',
+            });
+        }
 
         router.push('/');
         onSuccess?.();
@@ -73,7 +86,7 @@ const Register = ({ onSuccess }: LoginProps) => {
                 <input
                     className="w-96 px-2 py-2 bg-gray-50 rounded-xl border border-gray-300 dark:bg-gray-700 placeholder:text-sm dark:placeholder:text-gray-400 dark:border-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
                     type="text"
-                    placeholder="نام کاربری را وارد کنید"
+                    placeholder="نام کاربری یا ایمیل را وارد کنید"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required

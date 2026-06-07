@@ -1,13 +1,22 @@
 "use client"
 
 import { Icon } from "@iconify/react"
+import logoutIcon from '@iconify-icons/solar/logout-line-duotone'
 import Link from "next/link"
 
 import panel from "@/data/dashboard"
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 function Dashboard() {
     const pathname = usePathname();
+    const router = useRouter()
+    const { logout } = useAuth()
+
+    const handleLogout = () => {
+        logout()
+        router.push('/')
+    }
     return (
         <aside className="border border-gray-300 rounded-2xl w-72 h-full p-4 bg-white dark:bg-darkMode dark:border-gray-700">
             <div>
@@ -23,14 +32,19 @@ function Dashboard() {
                 {/* menu */}
                 <div className="flex flex-col gap-4">
                     {panel.map(menu => (
-                    <div key={menu.id} className={`mt-2 ${pathname === menu.route ? 'bg-teal-50 text-teal-500 border-r-2 border-r-teal-200 shadow-md shadow-teal-100 rounded-l dark:bg-gray-800 dark:border-r-teal-700 dark:shadow-teal-900 dark:shadow-sm dark:text-teal-500 pointer-events-none' : ''}`}>
-                        <Link href={menu.route} 
-                            className="flex items-center gap-2 px-3 py-2 rounded w-full hover:bg-gray-100 duration-200 dark:text-white dark:hover:bg-gray-800">
-                            <Icon className="text-lg" icon={menu.icon} />
-                            <p>{menu.title}</p>
-                        </Link>
-                    </div>
-                ))}
+                        <div key={menu.id} className={`mt-2 ${pathname === menu.route ? 'bg-teal-50 text-teal-500 border-r-2 border-r-teal-200 shadow-md shadow-teal-100 rounded-l dark:bg-gray-800 dark:border-r-teal-700 dark:shadow-teal-900 dark:shadow-sm dark:text-teal-500 pointer-events-none' : ''}`}>
+                            <Link href={menu.route}
+                                className="flex items-center gap-2 px-3 py-2 rounded w-full hover:bg-gray-100 duration-200 dark:text-white dark:hover:bg-gray-800">
+                                <Icon className="text-lg" icon={menu.icon} />
+                                <p>{menu.title}</p>
+                            </Link>
+                        </div>
+                    ))}
+                    <button className="flex items-center gap-2 px-3 py-2 rounded w-full hover:bg-gray-100 duration-200 dark:text-white dark:hover:bg-gray-800 cursor-pointer"
+                        onClick={handleLogout}>
+                        <Icon className="text-lg" icon={logoutIcon} />
+                        <p>خروج</p>
+                    </button>
                 </div>
             </div >
         </aside >

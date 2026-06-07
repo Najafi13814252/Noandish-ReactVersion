@@ -17,8 +17,7 @@ async function Learns({ searchParams }: {
 
     console.log(params.toString())
 
-  const res = await apiFetch(`/courses?${params.toString()}`)
-  const courses: courseType[] = await res.json()
+  const courses: courseType[] = await apiFetch(`/courses?${params.toString()}`)
 
   return (
     <div className="grid grid-cols-4 gap-x-5 gap-y-10">
