@@ -13,50 +13,51 @@ type User = {
 
 type AuthContextType = {
     user: User | null;
-    initialized: boolean
     loading: boolean;
+    authLoading: boolean
     login: (data: LoginPayload) => Promise<void>;
     signup: (data: SignupPayload) => Promise<void>;
     logout: () => Promise<void>;
     refreshUser: () => Promise<void>;
 };
 
-export const AuthContext = createContext<AuthContextType | null>(null)
+export const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null)
-    const [loading, setLoading] = useState(false)
-    const [initialized, setInitialized] = useState(false)
+    const [loading, setLoading] = useState(true) // لود اولیه
+    const [authLoading, setAuthLoading] = useState(false)
 
     // گرفتن user از me 
     const refreshUser = async () => {
-        setLoading(true)
         try {
             const data = await authService.me()
             setUser(data?.user || null)
-            console.log(data.user);
         } catch {
             setUser(null)
         } finally {
             setLoading(false)
-            setInitialized(true)
         }
     }
 
     useEffect(() => {
-    refreshUser()
-}, [])
+        refreshUser()
+    }, [])
 
     // login
     const login = async (data: LoginPayload) => {
-        const res = await authService.login(data);
+        setAuthLoading(true)
+        try {
+            const res = await authService.login(data);
 
-        if (res?.user) {
-            setUser(res.user);
+            if (res?.user) {
+                setUser(res.user);
+            }
+
+            await refreshUser();
+        } finally {
+            setAuthLoading(false)
         }
-
-        await refreshUser();
-        
     };
 
     // signup
@@ -80,8 +81,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         <AuthContext.Provider
             value={{
                 user,
-                initialized,
                 loading,
+                authLoading,
                 login,
                 signup,
                 logout,

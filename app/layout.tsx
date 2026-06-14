@@ -7,6 +7,7 @@ import Navbar from "@/components/modules/navbar/Navbar";
 import Newsletter from "@/components/modules/Newsletter";
 import Footer from "@/components/modules/Footer";
 import AuthProvider from "@/contexts/Auth";
+import FavoriteProvider from "@/contexts/favorites";
 
 
 const arad = localFont({
@@ -60,18 +61,20 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${arad.className} dark:bg-darkMode`}>
         <AuthProvider>
           <ThemeProvider>
-            <Navbar />
+            <FavoriteProvider>
+              <Navbar />
 
-            <main>
-              {children}
-            </main>
+              <main>
+                {children}
+              </main>
 
-            <footer>
-              <div className="bg-main-100 py-10 my-10 md:my-0 dark:bg-gray-800">
-                <Newsletter />
-                <Footer />
-              </div>
-            </footer>
+              <footer>
+                <div className="bg-main-100 py-10 my-10 md:my-0 dark:bg-gray-800">
+                  <Newsletter />
+                  <Footer />
+                </div>
+              </footer>
+            </FavoriteProvider>
           </ThemeProvider>
         </AuthProvider>
 

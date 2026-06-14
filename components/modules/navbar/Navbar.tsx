@@ -15,13 +15,13 @@ import Image from "next/image";
 import Modal from "@/components/modals/Modal";
 import Register from "../Register";
 import Categories from "../Categories";
-import { useAuth } from "@/hooks/useAuth";
 import useModal from "@/hooks/useModal";
+import { AuthContext } from "@/contexts/Auth";
 
 function Navbar() {
 
     const { theme, toggleTheme } = useContext(ThemeContext)
-    const { user, initialized } = useAuth()
+    const { user, loading } = useContext(AuthContext)
     const [showCategories, setShowCategories] = useState(false)
     const { isOpen, openModal, closeModal } = useModal()
 
@@ -76,8 +76,8 @@ function Navbar() {
                 </button>
 
                 {/* Register */}
-                {!initialized ? (
-                    <span>Loading...</span>
+                {loading ? (
+                    <span className="w-32 h-10 py-5.5 bg-gray-200 rounded-lg animate-pulse dark:bg-gray-800"></span>
                 ) : user ? (
                     <Link href="/panel/my-courses">
                         <button
@@ -87,19 +87,17 @@ function Navbar() {
                         </button>
                     </Link>
                 ) : (
-                    <>
-                        <button
-                            className="md:flex items-center gap-1 p-2 text-main-100 rounded-xl border border-main-100 cursor-pointer dark:text-main-200 dark:border-main-200"
-                            onClick={openModal}>
-                            <Icon icon={loginIcon} className="rotate-180 text-2xl" />
-                            ورود | ثبت‌نام
-                        </button>
-
-                        <Modal isOpen={isOpen} onClose={closeModal}>
-                            <Register onSuccess={closeModal} />
-                        </Modal>
-                    </>
+                    <button
+                        className="md:flex items-center gap-1 p-2 text-main-100 rounded-xl border border-main-100 cursor-pointer dark:text-main-200 dark:border-main-200"
+                        onClick={openModal}>
+                        <Icon icon={loginIcon} className="rotate-180 text-2xl" />
+                        ورود | ثبت‌نام
+                    </button>
                 )}
+
+                <Modal isOpen={isOpen} onClose={closeModal}>
+                    <Register onSuccess={closeModal} />
+                </Modal>
             </section>
         </nav>
     )

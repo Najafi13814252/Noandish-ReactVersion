@@ -45,3 +45,7 @@
 .link-sort-section {
     @apply cursor-pointer hover:bg-main-100/10 px-2 py-1 rounded-md duration-200
 }
+
+.register-form {
+    @apply w-full px-2 py-2  rounded-xl border border-gray-300 dark:bg-gray-700 placeholder:text-sm dark:placeholder:text-gray-400 dark:text-white focus:outline-none focus:ring-1 focus:ring-teal-500 bg-gray-50 dark:border-gray-700
+}
