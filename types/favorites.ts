@@ -1,4 +1,5 @@
 export type FavoritesType = {
+    id: number
     image_url: string
     title: string
     lessons: number

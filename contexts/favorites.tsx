@@ -1,6 +1,7 @@
 'use client'
 
 import { favoriteService } from "@/services/favorites"
+import { FavoritesType } from "@/types/favorites"
 import { createContext, useEffect, useState } from "react"
 
 type FavoriteItem = {
@@ -11,26 +12,25 @@ type FavoriteContextType = {
     toggleFavorite: (course_id: number) => Promise<boolean>;
     isFavorite: (courseId: number) => boolean;
     fetchFavorites: () => void;
+    favorites: FavoritesType
 }
 
 export const FavoritesContext = createContext<FavoriteContextType>({} as FavoriteContextType)
 
 const FavoriteProvider = ({ children }: { children: React.ReactNode }) => {
     const [favoriteIds, setFavoriteIds] = useState<number[]>([])
+    const [favorites, setFavorites] = useState<FavoritesType>([])
 
     const fetchFavorites = async () => {
         try {
             const data = await favoriteService.getAll()
-
-            console.log('log 1 => ', data)
-
             setFavoriteIds(data.map((item: FavoriteItem) => item.id))
-
-            console.log('log 2 => ', favoriteIds)
+            setFavorites(data)
         } catch {
             setFavoriteIds([])
         }
     }
+    
 
     useEffect(() => {
         fetchFavorites()
@@ -51,12 +51,11 @@ const FavoriteProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     const isFavorite = (courseId: number) => {
-        console.log('log 3 => ', favoriteIds)
         return favoriteIds.includes(courseId)
     }
 
     return (
-        <FavoritesContext.Provider value={{ toggleFavorite, isFavorite, fetchFavorites }}>
+        <FavoritesContext.Provider value={{ toggleFavorite, isFavorite, fetchFavorites, favorites }}>
             {children}
         </FavoritesContext.Provider>
     )

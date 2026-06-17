@@ -17,10 +17,13 @@ import Register from "../Register";
 import Categories from "../Categories";
 import useModal from "@/hooks/useModal";
 import { AuthContext } from "@/contexts/Auth";
+import { CartContext } from "@/contexts/cart";
 
 function Navbar() {
 
     const { theme, toggleTheme } = useContext(ThemeContext)
+    const { cartItems } = useContext(CartContext)
+
     const { user, loading } = useContext(AuthContext)
     const [showCategories, setShowCategories] = useState(false)
     const { isOpen, openModal, closeModal } = useModal()
@@ -70,10 +73,15 @@ function Navbar() {
                 </button>
 
                 {/* سبد خرید */}
-                <button
-                    className="p-2 text-main-100 border border-main-100 rounded-full flex cursor-pointer dark:text-main-200 dark:border-main-200">
-                    <Icon className="text-2xl" icon={cartIcon} />
-                </button>
+                <div className="relative">
+                    <Link href="/cart"
+                        className="p-2 text-main-100 border border-main-100 rounded-full flex cursor-pointer dark:text-main-200 dark:border-main-200">
+                        <Icon className="text-2xl" icon={cartIcon} />
+                    </Link>
+                    {cartItems?.courses.length >= 1 && (
+                        <p className="bg-main-200 text-white text-sm w-4.5 h-4.5 text-center flex items-center justify-center rounded-full absolute top-0 -right-2">{cartItems?.courses.length}</p>
+                    )}
+                </div>
 
                 {/* Register */}
                 {loading ? (

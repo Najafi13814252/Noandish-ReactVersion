@@ -1,3 +1,5 @@
+'use client'
+
 import { Icon } from "@iconify/react"
 import notebookIcon from '@iconify-icons/solar/notebook-linear'
 import clockIcon from '@iconify-icons/solar/clock-circle-linear'
@@ -8,8 +10,14 @@ import tagIcon from '@iconify-icons/solar/tag-outline'
 import saveIcon from '@iconify-icons/solar/bookmark-line-duotone'
 import cartIcon from '@iconify-icons/solar/cart-large-2-bold'
 import { courseType } from "@/types/course"
+import { useContext } from "react"
+import { CartContext } from "@/contexts/cart"
+import toast, { Toaster } from "react-hot-toast"
 
 function CourseShopping({ course }: { course: courseType }) {
+
+    const { addCart, cartItems } = useContext(CartContext)
+
     const features = [
         { id: 1, title_1: 'جلسات', title_2: course.lessons, icon_name: notebookIcon },
         { id: 2, title_1: 'زمان دوره', title_2: `+${course.duration} ساعت`, icon_name: clockIcon },
@@ -18,6 +26,23 @@ function CourseShopping({ course }: { course: courseType }) {
         { id: 5, title_1: 'روش پشتیبانی', title_2: 'آنلاین', icon_name: sappurtIcon },
         { id: 6, title_1: 'نوع دوره', title_2: course.discount === 100 ? 'رایگان' : 'نقدی', icon_name: tagIcon }
     ]
+
+    const handleAddcart = async (courseId: number) => {
+        const existCourse = cartItems?.courses.some(item => item.course_id === courseId)
+        if (!existCourse) {
+            await addCart(courseId)
+            toast.success('دوره به سبد خرید اضافه شد', {
+                duration: 4000,
+                position: 'top-center'
+            })
+        } else {
+            toast.error('این دوره در سبد خرید وجود دارد', {
+                duration: 4000,
+                position: 'top-center'
+            })
+        }
+
+    }
     return (
         <div className="text-gray-800 font-medium sticky top-24">
             <div className="border border-gray-300 bg-white rounded-lg w-full md:w-88 shadow-md dark:bg-gray-800 dark:border-gray-700">
@@ -40,6 +65,7 @@ function CourseShopping({ course }: { course: courseType }) {
                 {/* Buy & Save */}
                 <div className="flex justify-between gap-2 px-2 pt-2 pb-4">
                     <button
+                        onClick={() => handleAddcart(course.id)}
                         className="flex items-center gap-2 bg-sky-500 text-white py-2 px-[3.3rem] rounded-md cursor-pointer hover:bg-sky-600 duration-200">
                         <Icon className="text-2xl" icon={cartIcon} />
                         <span className="font-medium text-lg">افزودن به سبد خرید</span>

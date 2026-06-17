@@ -8,6 +8,8 @@ import Newsletter from "@/components/modules/Newsletter";
 import Footer from "@/components/modules/Footer";
 import AuthProvider from "@/contexts/Auth";
 import FavoriteProvider from "@/contexts/favorites";
+import CartProvider, { CartContext } from "@/contexts/cart";
+import { Toaster } from "react-hot-toast";
 
 
 const arad = localFont({
@@ -61,20 +63,24 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${arad.className} dark:bg-darkMode`}>
         <AuthProvider>
           <ThemeProvider>
-            <FavoriteProvider>
-              <Navbar />
+            <CartProvider>
+              <FavoriteProvider>
+                <Navbar />
 
-              <main>
-                {children}
-              </main>
+                <main>
+                  {children}
+                </main>
 
-              <footer>
-                <div className="bg-main-100 py-10 my-10 md:my-0 dark:bg-gray-800">
-                  <Newsletter />
-                  <Footer />
-                </div>
-              </footer>
-            </FavoriteProvider>
+                <footer>
+                  <div className="bg-main-100 py-10 my-10 md:my-0 dark:bg-gray-800">
+                    <Newsletter />
+                    <Footer />
+                  </div>
+                </footer>
+
+                <Toaster />
+              </FavoriteProvider>
+            </CartProvider>
           </ThemeProvider>
         </AuthProvider>
 
