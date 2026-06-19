@@ -11,8 +11,8 @@ type FavoriteItem = {
 type FavoriteContextType = {
     toggleFavorite: (course_id: number) => Promise<boolean>;
     isFavorite: (courseId: number) => boolean;
-    fetchFavorites: () => void;
     favorites: FavoritesType
+    loading: boolean
 }
 
 export const FavoritesContext = createContext<FavoriteContextType>({} as FavoriteContextType)
@@ -20,6 +20,7 @@ export const FavoritesContext = createContext<FavoriteContextType>({} as Favorit
 const FavoriteProvider = ({ children }: { children: React.ReactNode }) => {
     const [favoriteIds, setFavoriteIds] = useState<number[]>([])
     const [favorites, setFavorites] = useState<FavoritesType>([])
+    const [loading, setLoading] = useState(false)
 
     const fetchFavorites = async () => {
         try {
@@ -30,24 +31,30 @@ const FavoriteProvider = ({ children }: { children: React.ReactNode }) => {
             setFavoriteIds([])
         }
     }
-    
+
 
     useEffect(() => {
         fetchFavorites()
     }, [])
 
     const toggleFavorite = async (courseId: number) => {
-        const res = await favoriteService.toggle(courseId)
+        setLoading(true)
+        try {
+            const res = await favoriteService.toggle(courseId)
 
-        setFavoriteIds(prev => {
-            if (res.isFavorite) {
-                return [...prev, courseId]
-            } else {
-                return prev.filter(id => id !== courseId)
-            }
-        })
+            setFavoriteIds(prev => {
+                if (res.isFavorite) {
+                    return [...prev, courseId]
+                } else {
+                    return prev.filter(id => id !== courseId)
+                }
+            })
 
-        return res.isFavorite
+            fetchFavorites()
+            return res.isFavorite
+        } finally {
+            setLoading(false)
+        }
     }
 
     const isFavorite = (courseId: number) => {
@@ -55,7 +62,7 @@ const FavoriteProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     return (
-        <FavoritesContext.Provider value={{ toggleFavorite, isFavorite, fetchFavorites, favorites }}>
+        <FavoritesContext.Provider value={{ toggleFavorite, isFavorite, favorites, loading }}>
             {children}
         </FavoritesContext.Provider>
     )

@@ -2,8 +2,6 @@ import { MyCourseType } from "@/data/myCourses"
 import { Icon } from "@iconify/react"
 import arrowLeft from '@iconify-icons/solar/arrow-left-broken'
 import cartPlusIcon from '@iconify-icons/solar/cart-plus-linear'
-import saveBoldIcon from '@iconify-icons/solar/bookmark-bold'
-import saveIOutlinecon from '@iconify-icons/solar/bookmark-line-duotone'
 import Image from "next/image"
 import Link from "next/link"
 
@@ -11,20 +9,14 @@ function LearningCard({ myCourses }: { myCourses: MyCourseType[] }) {
     return (
         <div className="grid grid-cols-4 gap-6 w-full">
             {myCourses.map(course => (
-                <div key={course.id} className="border border-gray-300 rounded-lg p-2 flex flex-col gap-3 bg-white hover:scale-105 duration-200 dark:bg-darkMode dark:border-gray-700">
+                <div key={course.id} className="relative border border-gray-300 rounded-lg p-2 flex flex-col gap-3 bg-white hover:scale-105 duration-200 dark:bg-darkMode dark:border-gray-700">
+
                     <Link href={`/courses/${course.id}`}>
                         <Image src={course.image} width={400} height={250} className="w-full h-40 object-cover rounded-lg border border-gray-200" loading="lazy" alt="Course_Image" />
                     </Link>
 
                     {/* course title */}
-                    <div className="flex justify-between items-center">
-                        <p className="text-xl font-medium dark:text-white">{course.title}</p>
-                        {course?.isBuy ? (
-                            <Icon className="text-lg text-main-100 hover:scale-125 duration-200 cursor-pointer" icon={saveBoldIcon}/>
-                        ) : (
-                            <Icon className="text-lg text-main-100 hover:scale-125 duration-200 cursor-pointer" icon={saveIOutlinecon}/>
-                        ) }
-                    </div>
+                    <p className="text-lg font-medium dark:text-white">{course.title}</p>
 
                     {/* teacher name */}
                     <span className="text-sm text-gray-500 dark:text-gray-400">مدرس: {course.teacherName}</span>

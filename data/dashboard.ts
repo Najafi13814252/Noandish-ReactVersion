@@ -18,7 +18,7 @@ const panel:PanelMenuType[] = [
     { id: 2, title: 'علاقه‌مندی‌ها', icon: saveIcon, route: '/panel/favorites' },
     // { id: 3, title: 'سوال‌های من', icon: dialogIcon, route: '/' },
     { id: 4, title: 'لیست تراکنش‌ها', icon: walletIcon, route: '/panel/transactions' },
-    { id: 5, title: 'تنظیمات پروفایل', icon: userIcon, route: '/' }
+    { id: 5, title: 'تنظیمات پروفایل', icon: userIcon, route: '/settings' }
 ]
 
 export default panel

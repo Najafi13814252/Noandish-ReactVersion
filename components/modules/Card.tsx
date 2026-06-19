@@ -48,10 +48,6 @@ const Card: React.FC<courseType> = ({ id, image_url, title, lessons, members, du
     return (
 
         <div className="max-w-xs flex flex-col relative gap-2 border bg-white border-teal-200 rounded-2xl shadow-md shadow-teal-200 p-3 cursor-pointer transform transition-transform duration-200 hover:scale-105 dark:bg-gray-800 dark:border-gray-700 dark:shadow-gray-800">
-            {/* ذخیره دوره */}
-            {/* <button className="absolute right-6 top-6 text-main-100 bg-white rounded-full flex items-center p-1 shadow opacity-85 hover:scale-110 duration-200">
-                <Icon icon={saveIcon} className="text-xl" />
-            </button> */}
 
             {/* عکس دوره */}
             <Link href={`/courses/${id}`}>

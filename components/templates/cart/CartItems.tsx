@@ -2,32 +2,25 @@
 
 import { Icon } from "@iconify/react"
 import trashIcon from "@iconify-icons/solar/trash-bin-minimalistic-linear"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { CartContext } from "@/contexts/cart"
-import useModal from "@/hooks/useModal"
 import Modal from "@/components/modals/Modal"
+import useDeleteModal from "@/hooks/useDeleteModal"
+import toast from "react-hot-toast"
 
 
 function CartItems() {
 
     const { cartItems, deleteCart, loading } = useContext(CartContext)
 
-    const { isOpen, openModal, closeModal } = useModal()
-
-    const [cartTitle, setCartTitle] = useState('')
-    const [courseId, setCourseId] = useState(0)
-
-    const showDeleteModal = (cartTitle: string, cartId: number) => {
-        openModal()
-        setCartTitle(cartTitle)
-        setCourseId(cartId)
-    }
+    const {courseTitle, itemId, showDeleteModal, isOpen, closeModal} = useDeleteModal()
 
     const handleDeleteCart = async () => {
         try {
-            await deleteCart(courseId)
+            await deleteCart(itemId)
         } finally {
             closeModal()
+            toast.success('دوره از سبد خرید حذف شد')
         }
     }
 
@@ -66,7 +59,7 @@ function CartItems() {
 
             <Modal isOpen={isOpen} onClose={closeModal}>
                 <div className="mt-8 flex flex-col gap-6 text-center">
-                    <p className="font-medium">آیا میخواهید دوره {cartTitle} را از سبد خرید خود حذف کنید؟</p>
+                    <p className="font-medium text-center">{`آیا میخواهید دوره " ${courseTitle} " را از سبد خرید خود حذف کنید؟`}</p>
                     <button className="text-white bg-red-500 font-medium w-full text-lg py-2 rounded-md cursor-pointer hover:bg-red-600 duration-200"
                         onClick={handleDeleteCart}>
                             {loading ? <Icon icon='svg-spinners:gooey-balls-1' className="mx-auto text-2xl"/> : 'حذف'}

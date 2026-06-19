@@ -40,7 +40,7 @@ function Dashboard() {
                             </Link>
                         </div>
                     ))}
-                    <button className="flex items-center gap-2 px-3 py-2 rounded w-full hover:bg-gray-100 duration-200 dark:text-white dark:hover:bg-gray-800 cursor-pointer"
+                    <button className="flex items-center gap-2 px-3 py-2 rounded w-full hover:bg-red-100 hover:text-red-500 duration-200 dark:text-white dark:hover:bg-gray-800 cursor-pointer"
                         onClick={handleLogout}>
                         <Icon className="text-lg" icon={logoutIcon} />
                         <p>خروج</p>

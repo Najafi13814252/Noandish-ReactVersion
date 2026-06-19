@@ -10,7 +10,7 @@ const Register = ({onSuccess}: {onSuccess?: () => void}) => {
     const [mode, setMode] = useState<'login' | 'signup'>('login');
     const { handleLogin, handleSignup, authLoading } = useRegister(onSuccess);
 
-    const description = mode
+    const description = mode === 'login'
         ? 'به صفحه ورود نواندیش خوش‌ برگشتید'
         : 'به صفحه ثبت‌نام نواندیش خوش‌آمدید';
 
