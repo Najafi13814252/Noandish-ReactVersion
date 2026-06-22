@@ -8,7 +8,7 @@ import useRegister from '@/hooks/useRegister';
 
 const Register = ({onSuccess}: {onSuccess?: () => void}) => {
     const [mode, setMode] = useState<'login' | 'signup'>('login');
-    const { handleLogin, handleSignup, authLoading } = useRegister(onSuccess);
+    const { handleLogin, handleSignup, loading } = useRegister(onSuccess);
 
     const description = mode === 'login'
         ? 'به صفحه ورود نواندیش خوش‌ برگشتید'
@@ -36,9 +36,9 @@ const Register = ({onSuccess}: {onSuccess?: () => void}) => {
             </div>
 
             {mode === 'login' ? (
-                <LoginForm onSubmit={handleLogin} loading={authLoading}/>
+                <LoginForm onSubmit={handleLogin} loading={loading}/>
             ) : (
-                <SignupForm onSubmit={handleSignup} loading={authLoading}/>
+                <SignupForm onSubmit={handleSignup} loading={loading}/>
             )}
 
             <button

@@ -5,7 +5,7 @@ import letterIcon from "@iconify-icons/solar/letter-line-duotone"
 function Newsletter() {
     return (
         <section className="w-fit mx-auto px-8 py-6 rounded-2xl shadow-lg">
-            <div className="flex flex-col md:flex-row justify-evenly items-center w-full gap-6 md:gap-36">
+            <div className="flex flex-col md:flex-row justify-evenly items-center w-full gap-6 lg:gap-36">
                 <div className="flex gap-2">
                     <Icon className="text-main-200 text-4xl rotate-6" icon={bulbIcon} />
                     <span className="w-full text-center md:text-right md:w-40 text-xl text-gray-100">خبرنامه ما را برای آخرین بروزرسانی‌ها دنبال کنید</span>

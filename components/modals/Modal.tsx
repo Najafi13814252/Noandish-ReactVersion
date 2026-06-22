@@ -32,7 +32,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   if (!modalRoot) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-9999 flex items-center justify-center bg-black/30 backdrop-blur-xs">
+    <div className="fixed inset-0 z-9999 flex items-center justify-center bg-black/30 backdrop-blur-xs px-2">
       <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl max-w-md w-full relative">
         <button
           onClick={onClose}

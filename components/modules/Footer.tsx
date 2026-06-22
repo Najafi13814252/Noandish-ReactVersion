@@ -8,8 +8,8 @@ import Image from "next/image"
 function Footer() {
     return (
         <>
-            <footer className="mt-16 w-fit mx-4 md:pr-20">
-                <div className="flex flex-col md:flex-row gap-16 md:gap-36 items-center text-gray-100">
+            <footer className="mt-20 w-fit mx-4 lg:pr-20">
+                <div className="flex flex-col lg:flex-row gap-16 lg:gap-36 items-center text-gray-100">
                     {/* introduction */}
                     <div className="flex flex-col gap-6">
                         <div className="flex items-center">
@@ -21,7 +21,7 @@ function Footer() {
                                 <span className="text-xs text-white">بنیاد تعالی آموزشی</span>
                             </div>
                         </div>
-                        <p className="w-full md:w-80">بنیاد تعالی آموزشی نواندیش با هدف ارتقاء دانش و مهارت‌های تخصصی در سازمان‌ها و
+                        <p className="w-full lg:w-80">بنیاد تعالی آموزشی نواندیش با هدف ارتقاء دانش و مهارت‌های تخصصی در سازمان‌ها و
                             شرکت‌ها، با
                             بهره‌گیری از اساتید
                             مجرب و محتوای به‌روز، بستری حرفه‌ای برای آموزش و توسعه منابع انسانی فراهم کرده است.
@@ -34,7 +34,7 @@ function Footer() {
                         </div> */}
                     </div>
 
-                    <ul className="grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-40 w-full">
+                    <ul className="grid grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-40 w-full">
                         {/* quick links */}
                         <li className="flex flex-col gap-1">
                             <span className="mb-3">لینک‌های سریع</span>
@@ -71,7 +71,7 @@ function Footer() {
                 </div >
             </footer >
 
-            <div className="fixed bottom-0 w-full flex md:hidden justify-between items-center py-2 px-4 z-20 bg-white shadow-lg border-t border-t-gray-200 dark:bg-darkMode dark:border-t-gray-700">
+            <div className="fixed bottom-0 w-full flex lg:hidden justify-between items-center py-2 px-4 z-20 bg-white shadow-lg border-t border-t-gray-200 dark:bg-darkMode dark:border-t-gray-700">
                 {mobileFooter.map(menu => (
                     <button key={menu.id} className="flex flex-col items-center gap-1 text-main-100 cursor-pointer dark:text-white">
                         <Icon className="text-xl" icon={menu.icon_name || ''} />

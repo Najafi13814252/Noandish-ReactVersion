@@ -8,7 +8,7 @@ import Newsletter from "@/components/modules/Newsletter";
 import Footer from "@/components/modules/Footer";
 import AuthProvider from "@/contexts/Auth";
 import FavoriteProvider from "@/contexts/favorites";
-import CartProvider, { CartContext } from "@/contexts/cart";
+import CartProvider from "@/contexts/cart";
 import { Toaster } from "react-hot-toast";
 
 
@@ -61,8 +61,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" dir="rtl">
       <body className={`${arad.className} dark:bg-darkMode`}>
-        <AuthProvider>
-          <ThemeProvider>
+        <ThemeProvider>
+          <AuthProvider>
             <CartProvider>
               <FavoriteProvider>
                 <Navbar />
@@ -72,7 +72,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 </main>
 
                 <footer>
-                  <div className="bg-main-100 py-10 my-10 md:my-0 dark:bg-gray-800">
+                  <div className="bg-main-100 pt-10 pb-20 my-10 md:my-0 dark:bg-gray-800">
                     <Newsletter />
                     <Footer />
                   </div>
@@ -81,9 +81,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <Toaster />
               </FavoriteProvider>
             </CartProvider>
-          </ThemeProvider>
-        </AuthProvider>
-
+          </AuthProvider>
+        </ThemeProvider>
         <div id="modal-root"></div>
       </body>
     </html>

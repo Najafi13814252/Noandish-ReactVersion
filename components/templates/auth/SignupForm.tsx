@@ -151,7 +151,7 @@ export default function SignupForm({ onSubmit, loading }: Props) {
                         })}
                     />
 
-                    <Icon icon={passType === 'password' ? unviewIcon : viewIcon} className='text-gray-500 text-xl cursor-pointer' onClick={handlePassType} />
+                    <Icon icon={passType === 'password' ? viewIcon : unviewIcon} className='text-gray-500 text-xl cursor-pointer' onClick={handlePassType} />
                 </div>
 
                 {errors.password && (

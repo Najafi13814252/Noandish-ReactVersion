@@ -28,7 +28,7 @@ function CardSlider({ courses }: { courses: courseType[] }) {
                 </button>
             </section>
 
-            <Swiper className="overflow-hidden h-full" slidesPerView={4.5} spaceBetween={0} slidesPerGroup={1} modules={[Navigation]}
+            <Swiper className="overflow-hidden h-full" slidesPerView={4.5} slidesPerGroup={1} modules={[Navigation]}
                 navigation={{
                     nextEl: ".button-next-slide",
                     prevEl: ".button-prev-slide"
@@ -41,7 +41,7 @@ function CardSlider({ courses }: { courses: courseType[] }) {
                     setIsBeginning(swiper.isBeginning)
                     setIsEnd(swiper.isEnd)
                 }} breakpoints={{
-                    360: { slidesPerView: 1.2 },
+                    360: { slidesPerView: 1.1 },
                     640: { slidesPerView: 2 },
                     1024: { slidesPerView: 4.5 },
                 }}>
