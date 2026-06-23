@@ -11,10 +11,10 @@ import Dashboard from "@/components/templates/panel/Dashboard";
 export default function PanelLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <ThemeProvider>
-      <div className="px-2 md:px-0 mx-0 md:mx-10 flex gap-2 py-10">
+      <div className="flex flex-col lg:flex-row gap-4 px-4 lg:px-10 py-6">
         <Dashboard />
 
-        <main className="pt-6 pr-8 w-full">
+        <main className="pt-4 lg:pt-6 w-full min-w-0">
           {children}
         </main>
       </div>

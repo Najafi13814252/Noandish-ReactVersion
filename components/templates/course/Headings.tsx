@@ -34,7 +34,7 @@ function Headings({ courseId }: { courseId: number }) {
         <div className="border border-gray-200 bg-white p-4 rounded-lg flex flex-col gap-6 text-gray-800 dark:bg-darkMode dark:text-white dark:border-gray-800">
             <div className="flex items-center gap-2">
                 <Icon className="text-4xl text-sky-500" icon={headingsIcon} />
-                <span className="text-2xl font-bold">سرفصل‌ها</span>
+                <span className="text-xl md:text-2xl font-bold">سرفصل‌ها</span>
             </div>
 
             <div className="flex flex-col gap-6">
@@ -45,7 +45,7 @@ function Headings({ courseId }: { courseId: number }) {
                         <div className="flex items-center justify-between cursor-pointer text-lg" onClick={() => toggle(index)}>
                             <div className="flex items-center gap-2">
                                 <span className="whitespace-nowrap">فصل {index + 1}.</span>
-                                <span className="truncate w-60 md:w-full font-medium">{heading.title}</span>
+                                <span className="truncate max-w-[180px] sm:max-w-[250px] md:max-w-full font-medium">{heading.title}</span>
                             </div>
                             <Icon className={`text-xl transition-transform ${openHeading === index ? '' : 'rotate-180'}`} icon={directionUpIcon} />
                         </div>
@@ -54,13 +54,13 @@ function Headings({ courseId }: { courseId: number }) {
                         {openHeading === index && (
                             <div className="my-8 flex flex-col gap-6">
                                 {heading.lessons.map((lesson, index) => (
-                                    <div key={lesson.id} className="flex items-center justify-between p-4 rounded-lg shadow cursor-pointer hover:bg-gray-50 duration-200 dark:bg-gray-700 dark:hover:bg-gray-800">
+                                    <div key={lesson.id} className="flex items-center justify-between gap-3 p-3 md:p-4 rounded-lg shadow cursor-pointer hover:bg-gray-50 duration-200 dark:bg-gray-700 dark:hover:bg-gray-800">
                                         <div className="flex items-center gap-2">
                                             <div className="flex items-center gap-2">
                                                 <Icon icon={playIcon} />
                                                 <span className="whitespace-nowrap">جلسه {index + 1}.</span>
                                             </div>
-                                            <div className="truncate w-32 md:w-full">{lesson.title}</div>
+                                            <div className="truncate max-w-[120px] sm:max-w-[220px] md:max-w-full">{lesson.title}</div>
                                         </div>
                                         {lesson.is_free ? (
                                             <div className="flex items-center bg-green-100 p-2 rounded-full dark:bg-gray-600">

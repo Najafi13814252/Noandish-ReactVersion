@@ -44,8 +44,8 @@ function CourseShopping({ course }: { course: courseType }) {
 
     }
     return (
-        <div className="text-gray-800 font-medium sticky top-24">
-            <div className="border border-gray-300 bg-white rounded-lg w-full md:w-88 shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <div className="text-gray-800 font-medium lg:sticky lg:top-24">
+            <div className="border border-gray-300 bg-white rounded-lg w-full lg:w-[350px] shadow-md dark:bg-gray-800 dark:border-gray-700">
                 {/* price and description */}
                 <div className="flex justify-between items-center gap-4 p-4">
                     <div className="flex items-center gap-2">
@@ -63,10 +63,10 @@ function CourseShopping({ course }: { course: courseType }) {
                 </div>
 
                 {/* Buy & Save */}
-                <div className="flex justify-between gap-2 px-2 pt-2 pb-4">
+                <div className="flex gap-2 px-2 pt-2 pb-4">
                     <button
                         onClick={() => handleAddcart(course.id)}
-                        className="flex items-center gap-2 bg-sky-500 text-white py-2 px-[3.3rem] rounded-md cursor-pointer hover:bg-sky-600 duration-200">
+                        className="flex-1 flex items-center justify-center gap-2 bg-sky-500 text-white py-3 px-4 rounded-md cursor-pointer hover:bg-sky-600 duration-200">
                         <Icon className="text-2xl" icon={cartIcon} />
                         <span className="font-medium text-lg">افزودن به سبد خرید</span>
                     </button>

@@ -24,8 +24,8 @@ function AboutTeacher({ courseId }: { courseId: number }) {
     }, [courseId])
     return (
         <div className="border border-gray-200 bg-white p-4 rounded-lg text-gray-800 dark:bg-darkMode dark:text-white dark:border-gray-800">
-            <div className="flex flex-col md:flex-row items-center gap-10">
-                <img className="w-48 h-48 rounded-full object-cover" src="/images/person.webp" alt="teacher_profile" />
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-10">
+                <img className="w-32 h-32 md:w-48 md:h-48 rounded-full object-cover" src="/images/person.webp" alt="teacher_profile" />
                 <div className="flex flex-col gap-8 md:gap-4">
                     <span className="text-2xl text-main-100 font-bold dark:text-white text-center md:text-right">{teacher?.fullname}</span>
                     <div className="flex items-center gap-6 justify-center md:justify-stretch">

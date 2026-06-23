@@ -27,9 +27,9 @@ function FavoriteCard({ myCourses }: { myCourses: FavoritesType }) {
     }
     return (
         <>
-            <div className="grid grid-cols-4 gap-6 w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 w-full">
                 {myCourses.map(course => (
-                    <div key={course.id} className="relative border border-gray-300 rounded-lg p-2 flex flex-col gap-3 bg-white hover:scale-105 duration-200 dark:bg-darkMode dark:border-gray-700">
+                    <div key={course.id} className="relative border border-gray-300 rounded-lg p-2 flex flex-col gap-3 bg-white hover:scale-105 active:scale-95 transition-transform duration-200 dark:bg-darkMode dark:border-gray-700">
 
                         {/* ذخیره دوره */}
                         <button className="absolute right-6 top-6 text-main-100 bg-white rounded-full flex items-center p-1 shadow opacity-85 hover:scale-110 duration-200 cursor-pointer"

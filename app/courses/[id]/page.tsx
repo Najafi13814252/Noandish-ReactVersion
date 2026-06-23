@@ -9,12 +9,12 @@ async function Course({ params }: { params: Promise<{ id: number }> }) {
   const course: courseType = await apiFetch(`/courses/${id}`)
 
   return (
-    <section className="px-2 md:px-0 mx-0 md:mx-10 flex flex-col gap-6 my-10 w-full md:w-fit">
+    <section className="container mx-auto px-4 lg:px-6 flex flex-col gap-6 my-6 lg:my-10">
       {/* <Breadcrumb /> */}
       <CourseDescriptions course={course} />
 
-      <div className="flex flex-col md:flex-row justify-between gap-6">
-        <div className="flex flex-col gap-4 w-full">
+      <div className="flex flex-col lg:flex-row gap-6">
+        <div className="flex flex-col gap-4 flex-1 min-w-0">
           <CourseContent course={course}/>
         </div>
 

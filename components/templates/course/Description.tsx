@@ -11,7 +11,7 @@ function Description({ prerequisites }: { prerequisites: string[] }) {
                 {/* descriptons */}
                 <div className="flex items-center gap-2">
                     <Icon className="text-4xl text-yellow-500" icon={fileIcon} />
-                    <span className="text-2xl font-bold">توضیحات</span>
+                    <span className="text-xl md:text-2xl font-bold">توضیحات</span>
                 </div>
                 <div className="flex flex-col gap-4">
                     <p>طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید

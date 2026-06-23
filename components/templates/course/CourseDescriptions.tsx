@@ -15,7 +15,7 @@ async function CourseDescriptions({course}: {course: courseType}) {
                     با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
                 </p>
 
-                <div className="flex flex-col md:flex-row items-start md:items-center gap-9">
+                <div className="flex flex-wrap gap-6">
                     <div className="flex gap-2">
                         <Icon className="text-2xl text-yellow-500" icon={starIcon} />
                         <span className="text-xl font-medium dark:text-white"><span className="text-lg text-gray-500 dark:text-gray-300">5 /</span> {course.points}</span>
@@ -31,7 +31,7 @@ async function CourseDescriptions({course}: {course: courseType}) {
                     </div>
                 </div>
 
-                <div className="flex items-center gap-8">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
                     <div className="flex items-center gap-2">
                         <img className="w-9 h-9 object-cover rounded-full" src="/images/person.webp" alt="teacher" />
                         <span className="dark:text-white">{course.teacher_name}</span>
@@ -43,7 +43,7 @@ async function CourseDescriptions({course}: {course: courseType}) {
                 </div>
             </div>
 
-            <video className="w-120 h-full rounded-md object-cover" poster="/images/img-1.webp" controls>
+            <video className="w-full md:w-[420px] lg:w-[480px] xl:w-[520px] rounded-md object-cover" poster="/images/img-1.webp" controls>
                 <source src="/videoTest.mp4" />
             </video>
         </div>

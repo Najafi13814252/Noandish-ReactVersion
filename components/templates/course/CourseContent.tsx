@@ -73,9 +73,9 @@ const CourseContent = ({course}: {course: courseType}) => {
     return (
         <>
             <div className="bg-gray-100 p-4 rounded-md sticky top-21 z-30 dark:bg-gray-800">
-                <ul className="flex items-center justify-between md:justify-evenly dark:text-white">
+                <ul className="flex items-center gap-2 overflow-x-auto scrollbar-hide dark:text-white">
                     {navItems.map((item) => (
-                        <li key={item.id}>
+                        <li key={item.id} className="shrink-0">
                             <button
                                 onClick={() => scrollTo(item.id)}
                                 className={`cursor-pointer transition-all duration-300 px-4 py-1 rounded-md ${active === item.id

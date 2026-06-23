@@ -22,8 +22,8 @@ function Transactions() {
         <div className="flex flex-col gap-10">
             <h2 className="text-2xl dark:text-white">گزارش تراکنش‌ها</h2>
 
-            <div className="overflow-x-auto lg:overflow-x-visible">
-                <table className="w-full text-center rounded-md">
+            <div className="overflow-x-auto w-full">
+                <table className="min-w-[700px] w-full text-center rounded-md">
                     <thead className="text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-200">
                         <tr>
                             <td className="px-6 py-3 text-right">#</td>

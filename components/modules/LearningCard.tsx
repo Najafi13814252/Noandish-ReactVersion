@@ -7,9 +7,9 @@ import Link from "next/link"
 
 function LearningCard({ myCourses }: { myCourses: MyCourseType[] }) {
     return (
-        <div className="grid grid-cols-4 gap-6 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 w-full">
             {myCourses.map(course => (
-                <div key={course.id} className="relative border border-gray-300 rounded-lg p-2 flex flex-col gap-3 bg-white hover:scale-105 duration-200 dark:bg-darkMode dark:border-gray-700">
+                <div key={course.id} className="relative border border-gray-300 rounded-lg p-2 flex flex-col gap-3 bg-white hover:scale-105 active:scale-95 transition-transform duration-200 dark:bg-darkMode dark:border-gray-700">
 
                     <Link href={`/courses/${course.id}`}>
                         <Image src={course.image} width={400} height={250} className="w-full h-40 object-cover rounded-lg border border-gray-200" loading="lazy" alt="Course_Image" />
@@ -35,9 +35,9 @@ function LearningCard({ myCourses }: { myCourses: MyCourseType[] }) {
                     )}
 
                     {course?.isBuy ? (
-                        <div className="flex items-center justify-between mt-2" >
+                        <div className="flex flex-col sm:flex-row gap-2 mt-3" >
                             <button
-                                className="bg-teal-600 px-6.5 py-2 text-white text-sm rounded-md flex items-center gap-2 hover:bg-teal-700 duration-200 cursor-pointer">
+                                className="bg-teal-600 px-6.5 py-2 text-white text-sm rounded-md flex items-center justify-center gap-2 hover:bg-teal-700 duration-200 cursor-pointer">
                                 ادامه دوره
                                 <Icon className="text-lg" icon={arrowLeft} />
                             </button>
