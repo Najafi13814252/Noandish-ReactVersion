@@ -6,15 +6,24 @@ import Link from "next/link"
 import { updateSearchParams } from "@/utils/updateSearchParams"
 import { useSearchParams } from "next/navigation"
 
-function FilterSection() {
+function FilterSection({ onSelect }: { onSelect?: () => void }) {
     const searchParams = useSearchParams()
 
     const type = searchParams.get('type')
     const level = searchParams.get('level')
     const points = searchParams.get('points')
 
+    const closeFilterWithSelect = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+        const target = e.target as HTMLElement;
+
+        if (target.closest("a")) {
+            onSelect?.();
+        }
+    }
+
     return (
-        <aside className="flex flex-col divide-y divide-gray-200 gap-4 border border-gray-300 rounded-2xl w-60 h-full p-4 bg-white dark:bg-darkMode dark:border-gray-700 dark:text-white dark:divide-gray-800">
+        <aside className="flex flex-col divide-y divide-gray-200 gap-4 border border-gray-300 rounded-2xl w-full lg:w-60 h-full p-4 bg-white dark:bg-darkMode dark:border-gray-700 dark:text-white dark:divide-gray-800"
+            onClick={closeFilterWithSelect}>
             <section className="pb-4 flex items-center gap-2">
                 <Icon className="text-xl" icon={filterIcon} />
                 <span className="text-lg font-medium">فیلترها</span>

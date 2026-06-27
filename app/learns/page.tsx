@@ -1,4 +1,6 @@
 import Card from "@/components/modules/Card"
+import MobileFilterSection from "@/components/templates/learns/MobileFilterSection"
+import MobileSortSection from "@/components/templates/learns/MobileSortSection"
 import { apiFetch } from "@/services/api"
 import { courseType } from "@/types/course"
 
@@ -15,15 +17,21 @@ async function Learns({ searchParams }: {
   if (points) params.set('points', points)
   if (type) params.set('type', type)
 
-    console.log(params.toString())
+  console.log(params.toString())
 
   const courses: courseType[] = await apiFetch(`/courses?${params.toString()}`)
 
   return (
-    <div className="grid grid-cols-4 gap-x-5 gap-y-10">
-      {courses.map(course => (
-        <Card key={course.id} {...course} />
-      ))}
+    <div className="">
+      <div className="flex lg:hidden items-center gap-2 mb-4">
+        <MobileFilterSection />
+        <MobileSortSection />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-10">
+        {courses.map(course => (
+          <Card key={course.id} {...course} />
+        ))}
+      </div>
     </div>
   )
 }

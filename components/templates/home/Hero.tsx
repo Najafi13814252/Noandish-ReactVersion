@@ -28,7 +28,7 @@ function Hero() {
                 </div>
             </div>
 
-            <Image src="/hero.avif" alt="Hero_Image" width={1024} height={1024} loading="eager" className="w-full h-auto" />
+            <Image src="/hero.avif" alt="Hero_Image" width={1024} height={1024} loading="eager"  />
 
         </section>
     )

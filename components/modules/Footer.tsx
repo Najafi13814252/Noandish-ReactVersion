@@ -1,9 +1,10 @@
 import { Icon } from "@iconify/react"
 
-import { links, mobileFooter } from "@/data/footer"
+import { links } from "@/data/footer"
 
 import directionLeftIcon from "@iconify-icons/solar/arrow-left-bold-duotone"
 import Image from "next/image"
+import MobileFooter from "./MobileFooter"
 
 function Footer() {
     return (
@@ -71,14 +72,8 @@ function Footer() {
                 </div >
             </footer >
 
-            <div className="fixed bottom-0 w-full flex lg:hidden justify-between items-center py-2 px-4 z-20 bg-white shadow-lg border-t border-t-gray-200 dark:bg-darkMode dark:border-t-gray-700">
-                {mobileFooter.map(menu => (
-                    <button key={menu.id} className="flex flex-col items-center gap-1 text-main-100 cursor-pointer dark:text-white">
-                        <Icon className="text-xl" icon={menu.icon_name || ''} />
-                        <span className="text-xs">{menu.title}</span>
-                    </button>
-                ))}
-            </div >
+            {/* mobile footer */}
+            <MobileFooter />
         </>
     )
 }

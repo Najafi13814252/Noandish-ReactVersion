@@ -15,10 +15,14 @@ export default function PanelLayout({ children }: Readonly<{ children: React.Rea
       <div className="px-2 md:px-0 mx-0 md:mx-10 flex flex-col gap-6 py-6">
         <h1 className="text-3xl text-main-100 font-lalezar mr-2">همه دوره‌ها</h1>
         <div className="flex w-full h-full gap-4">
-          <FilterSection />
+          <div className="hidden lg:block">
+            <FilterSection />
+          </div>
 
           <div className="flex flex-col w-full">
-            <SortSection />
+            <div className="hidden lg:block">
+              <SortSection />
+            </div>
             <main className="h-full">
               {children}
             </main>
