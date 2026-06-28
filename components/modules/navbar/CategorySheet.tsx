@@ -6,7 +6,7 @@ import backIcon from "@iconify-icons/solar/arrow-right-broken"
 import React, { useState } from "react"
 import { Drawer } from "vaul"
 
-function CategorySheet({children}: {children: React.ReactNode}) {
+function CategorySheet({ children }: { children: React.ReactNode }) {
     const [isSelected, setIsSelected] = useState<number>(1)
     const [showMenu, setShowMenu] = useState(true)
     const [showSubMenu, setShowSubMenu] = useState(false)
@@ -17,7 +17,7 @@ function CategorySheet({children}: {children: React.ReactNode}) {
             </Drawer.Trigger >
             <Drawer.Portal>
                 <Drawer.Overlay className="fixed inset-0 bg-black/40 z-9997" />
-                <Drawer.Content className="bg-gray-100 flex flex-col rounded-t-[10px] mt-24 h-96 fixed z-9998 bottom-0 left-0 right-0 outline-none dark:bg-darkMode">
+                <Drawer.Content className="bg-white flex flex-col rounded-t-[10px] mt-24 h-96 fixed z-9998 bottom-0 left-0 right-0 outline-none dark:bg-darkMode">
                     {/* header */}
                     <div className="sticky top-0 z-10 rounded-t-[10px] px-4 pt-4 space-y-4 dark:bg-darkMode">
                         <div aria-hidden className="mx-auto w-8 h-1 shrink-0 rounded-full bg-gray-300 mb-4" />
@@ -53,9 +53,9 @@ function CategorySheet({children}: {children: React.ReactNode}) {
                                                     className="text-xl"
                                                     icon={menuItem.icon_name}
                                                 />
-                                                <span className="text-sm">
+                                                <p>
                                                     {menuItem.title}
-                                                </span>
+                                                </p>
                                             </div>
 
                                             <Icon
@@ -75,15 +75,15 @@ function CategorySheet({children}: {children: React.ReactNode}) {
                                 >
                                     {isSelected === items.id && (
                                         <div className="flex flex-col gap-7 w-full dark:text-white">
-                                            <p className="text-sm text-teal-500">
+                                            <p className=" text-teal-500">
                                                 همه آموزش‌های {items.title}
                                             </p>
 
                                             {items.items.map((item, index) => (
                                                 <div key={index}>
-                                                    <span className="text-sm hover:text-teal-500 cursor-pointer duration-200">
+                                                    <p className=" hover:text-teal-500 cursor-pointer duration-200">
                                                         {item}
-                                                    </span>
+                                                    </p>
                                                 </div>
                                             ))}
                                         </div>
