@@ -1,17 +1,9 @@
 "use client"
 
 import { ThemeContext } from "@/contexts/Theme";
-import { Icon } from "@iconify/react";
 import Link from "next/link"
 import { useContext, useState } from "react"
 
-import categoryIcon from '@iconify-icons/solar/widget-2-line-duotone'
-import darkIcon from '@iconify-icons/solar/moon-bold-duotone'
-import lightIcon from '@iconify-icons/solar/sun-2-bold-duotone'
-import searchIcon from '@iconify-icons/solar/magnifer-line-duotone'
-import loginIcon from '@iconify-icons/solar/login-line-duotone'
-import cartIcon from '@iconify-icons/solar/cart-5-line-duotone'
-import userIcon from '@iconify-icons/solar/user-outline'
 import Image from "next/image";
 import Modal from "@/components/modals/Modal";
 import Register from "../Register";
@@ -19,6 +11,14 @@ import Categories from "../Categories";
 import useModal from "@/hooks/useModal";
 import { AuthContext } from "@/contexts/Auth";
 import { CartContext } from "@/contexts/cart";
+
+import Widgets from "@/assets/icons/widgets.svg"
+import Moon from "@/assets/icons/moon.svg"
+import Sun from "@/assets/icons/sun.svg"
+import Search from "@/assets/icons/search.svg"
+import Cart from "@/assets/icons/cart.svg"
+import Login from "@/assets/icons/login.svg"
+import User from "@/assets/icons/user.svg"
 
 function Navbar() {
 
@@ -44,7 +44,7 @@ function Navbar() {
                 {/* Category */}
                 <div className="relative">
                     <button className="hidden lg:flex items-center gap-1 text-main-100 text-lg dark:text-main-200 cursor-pointer" onClick={() => setShowCategories(!showCategories)}>
-                        <Icon icon={categoryIcon} className="text-2xl" />
+                        <Widgets />
                         دسته‌بندی‌ها
                     </button>
                     {showCategories && (
@@ -57,7 +57,9 @@ function Navbar() {
                 {/* Search Box */}
                 <div className="hidden lg:block relative">
                     <div className="absolute inset-y-0 inset-s-0 flex items-center ps-3.5 ">
-                        <Icon className="text-2xl text-main-100 dark:text-main-200" icon={searchIcon} />
+                        <div className="text-main-100 dark:text-main-200" >
+                            <Search />
+                        </div>
                     </div>
                     <input type="text" id="input-group-1"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl w-full md:w-120 ps-12 p-3 dark:bg-transparent dark:border-gray-700 dark:placeholder:text-white dark:text-white"
@@ -70,17 +72,21 @@ function Navbar() {
                 <button
                     className="p-2 text-main-100 border border-main-100 rounded-full flex cursor-pointer dark:text-main-200 dark:border-main-200"
                     onClick={toggleTheme}>
-                    <Icon className="text-2xl" icon={theme === 'light' ? darkIcon : lightIcon} />
+                    {theme === 'light' ? (
+                        <Moon />
+                    ) : (
+                        <Sun />
+                    )}
                 </button>
 
                 {/* سبد خرید */}
                 <div className="relative">
                     <Link href="/cart"
                         className="p-2 text-main-100 border border-main-100 rounded-full flex cursor-pointer dark:text-main-200 dark:border-main-200">
-                        <Icon className="text-2xl" icon={cartIcon} />
+                        <Cart />
                     </Link>
                     {cartItems?.courses.length >= 1 && user && (
-                        <p className="bg-main-200 text-white text-sm w-4.5 h-4.5 text-center flex items-center justify-center rounded-full absolute top-0 -right-2">{cartItems?.courses.length}</p>
+                        <p className="bg-main-200 text-white text-sm w-4.5 h-4.5 text-center flex items-center justify-center rounded-full absolute top-0 -right-2 dark:text-white dark:bg-main-100">{cartItems?.courses.length}</p>
                     )}
                 </div>
 
@@ -91,7 +97,7 @@ function Navbar() {
                     <Link href="/panel/my-courses">
                         <button
                             className="flex items-center gap-2 border border-main-100 text-main-100 px-2 py-2 rounded-full cursor-pointer dark:text-main-200 dark:border-main-200">
-                            <Icon className="text-2xl" icon={userIcon} />
+                            <User />
                             {/* <p>{user.firstname} {user.lastname}</p> */}
                         </button>
                     </Link>
@@ -99,7 +105,7 @@ function Navbar() {
                     <button
                         className="flex items-center gap-1 p-2 text-main-100 rounded-xl border border-main-100 cursor-pointer dark:text-main-200 dark:border-main-200"
                         onClick={openModal}>
-                        <Icon icon={loginIcon} className="rotate-180 text-2xl" />
+                        <Login />
                         <p className="hidden xs:block"> ورود | ثبت‌نام</p>
                     </button>
                 )}

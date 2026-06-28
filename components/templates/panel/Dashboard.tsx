@@ -22,7 +22,7 @@ function Dashboard() {
     }
     return (
         <div className="relative">
-            <aside className={`w-full lg:w-72 lg:h-auto lg:overflow-auto p-4 border border-gray-300 rounded-2xl bg-white dark:bg-darkMode dark:border-gray-700 ${open ? "h-auto" : "h-[11.5rem] overflow-hidden"}`}>
+            <aside className={`w-full lg:w-60 lg:h-auto lg:overflow-auto p-4 border border-gray-300 rounded-2xl bg-white dark:bg-darkMode dark:border-gray-700 ${open ? "h-auto" : "h-[11.5rem] overflow-hidden"}`}>
                 <div>
                     {/* profile */}
                     <div className="flex flex-col items-center gap-4 border-b border-b-gray-200 pb-4 dark:border-b-gray-800">

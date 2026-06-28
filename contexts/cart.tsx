@@ -27,8 +27,18 @@ function CartProvider({ children }: { children: React.ReactNode }) {
     }, [])
 
     const getCart = async () => {
-        const cart = await cartServices.getAll()
-        setCartItems(cart)
+        try {
+            const cart = await cartServices.getAll()
+            setCartItems(cart || {
+                courses: [],
+                total: '0'
+            })
+        } catch {
+            setCartItems({
+                courses: [],
+                total: '0'
+            })
+        }
     }
 
     const addCart = async (courseId: number) => {

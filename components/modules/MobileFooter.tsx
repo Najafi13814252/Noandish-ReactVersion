@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react"
-import homeIcon from "@iconify-icons/solar/home-angle-bold"
+import homeIcon from "@iconify-icons/solar/home-angle-2-line-duotone"
 import searchIcon from "@iconify-icons/solar/magnifer-line-duotone"
 import widgetIcon from "@iconify-icons/solar/widget-2-line-duotone"
 import notebookIcon from "@iconify-icons/solar/notebook-line-duotone"
@@ -8,7 +8,7 @@ import CategorySheet from "./navbar/CategorySheet"
 
 function MobileFooter() {
     return (
-        <div className="fixed bottom-0 w-full flex lg:hidden justify-between items-center py-2 px-4 z-20 bg-white shadow-lg border-t border-t-gray-200 dark:bg-darkMode dark:border-t-gray-700">
+        <div className="fixed bottom-0 w-full flex lg:hidden justify-between items-center py-2 px-4 z-9999 bg-white shadow-lg border-t border-t-gray-200 dark:bg-darkMode dark:border-t-gray-700">
             {/* <CategorySheet /> */}
 
             <button className="flex flex-col items-center gap-1 text-main-100 cursor-pointer dark:text-white">

@@ -18,6 +18,11 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* svg {
+    width: 24px;
+    height: 24px
+} */
+
 .custom-pagination .swiper-pagination-bullet {
     @apply w-2 h-2 bg-gray-300 rounded-full cursor-pointer;
     transition:

@@ -13,7 +13,7 @@ function Cart() {
     const { cartItems } = useContext(CartContext)
 
     return (
-        <div className="px-10 pb-10 pt-5 flex flex-col gap-5">
+        <div className="px-4 lg:px-10 pb-10 pt-5 flex flex-col gap-5">
             {cartItems.courses.length ? (
                 <>
                     <div className="flex gap-9 md:gap-12 my-2">
@@ -24,12 +24,12 @@ function Cart() {
                         <h1 className="flex items-center text-2xl font-lalezar text-main-100 dark:text-white">سبد خرید</h1>
                     </div>
 
-                    <main className="w-full flex gap-16">
-                        <div className="w-3/4">
+                    <main className="w-full flex flex-col lg:flex-row gap-6 lg:gap-16">
+                        <div className="w-full lg:w-3/4">
                             <CartItems />
                         </div>
 
-                        <div className="w-1/4">
+                        <div className="w-full lg:w-1/4">
                             <PaymentCard />
                         </div>
                     </main>

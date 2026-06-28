@@ -4,9 +4,7 @@ import { apiFetch } from "@/services/api"
 import { courseType } from "@/types/course"
 import fireIcon from "@iconify-icons/solar/fire-bold"
 
-async function FreeCourses() {
-    const courses: courseType[] = await apiFetch('/courses')
-
+function FreeCourses({courses}: {courses: courseType[]}) {
     const filterCourses = courses.filter(course => course.discount === 100)
 
     return (

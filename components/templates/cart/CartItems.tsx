@@ -28,7 +28,7 @@ function CartItems() {
         <>
             <div className="flex flex-col gap-4">
                 {cartItems?.courses.map(item => (
-                    <section key={item.id} className="flex items-center justify-between pt-4 border-t border-t-gray-200">
+                    <section key={item.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-gray-200 dark:border-gray-800 dark:text-white">
                         {/* عکس، نام دوره و نام مدرس */}
                         <div className="flex items-center gap-4">
                             <img className="w-16 h-16 object-cover aspect-square rounded-xl" src="/images/img-2.webp" alt="cart-image" />
@@ -39,7 +39,7 @@ function CartItems() {
                         </div>
 
                         {/* قیمت دوره */}
-                        <div className="flex gap-4 items-center">
+                        <div className="flex gap-4 items-center w-full justify-between lg:justify-stretch lg:w-fit">
                             {item.discount > 0 ? (
                                 <div className="flex items-center gap-2">
                                     <div className="flex flex-col items-end gap-1">

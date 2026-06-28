@@ -1,9 +1,8 @@
 import Image from "next/image"
 
-import { Icon } from "@iconify/react"
-import startIcon from '@iconify-icons/solar/round-alt-arrow-left-line-duotone'
-import courseIcon from '@iconify-icons/solar/notebook-bookmark-bold-duotone'
 import Link from "next/link"
+import DirectionLeftCircle from "@/assets/icons/direction-left-circle.svg"
+import Book from "@/assets/icons/book.svg"
 
 function Hero() {
     return (
@@ -18,11 +17,11 @@ function Hero() {
                 <div className="flex gap-4 items-center justify-center lg:justify-normal">
                     <button
                         className="w-full md:w-fit flex items-center justify-center gap-2 text-first bg-second px-6 py-2 rounded-full text-main-100 bg-main-200 hover:bg-yellow-300 duration-200 cursor-pointer">
-                        <Icon className="text-2xl" icon={startIcon} />
+                        <DirectionLeftCircle />
                         <span className="text-lg font-medium cursor-pointer">شروع کنید</span>
                     </button>
                     <Link href="/learns" className="w-full md:w-fit flex items-center justify-center gap-2 text-white bg-first px-6 py-2 rounded-full bg-main-100 hover:bg-teal-600 duration-200 cursor-pointer">
-                        <Icon className="text-2xl" icon={courseIcon} />
+                        <Book />
                         <span className="text-lg font-medium cursor-pointer">دوره‌های ما</span>
                     </Link>
                 </div>

@@ -37,12 +37,12 @@ function LearningCard({ myCourses }: { myCourses: MyCourseType[] }) {
                     {course?.isBuy ? (
                         <div className="flex flex-col sm:flex-row gap-2 mt-3" >
                             <button
-                                className="bg-teal-600 px-6.5 py-2 text-white text-sm rounded-md flex items-center justify-center gap-2 hover:bg-teal-700 duration-200 cursor-pointer">
+                                className="bg-teal-600 w-full py-2 text-white text-sm rounded-md flex items-center justify-center gap-2 hover:bg-teal-700 duration-200 cursor-pointer">
                                 ادامه دوره
                                 <Icon className="text-lg" icon={arrowLeft} />
                             </button>
                             <button
-                                className="border border-teal-600 px-8 py-2 text-teal-600 rounded-md text-sm hover:bg-teal-100 duration-200 cursor-pointer dark:hover:bg-gray-800">ثبت
+                                className="border border-teal-600 w-full py-2 text-teal-600 rounded-md text-sm hover:bg-teal-100 duration-200 cursor-pointer dark:hover:bg-gray-800">ثبت
                                 نظر</button>
                         </div>
                     ) : course?.price && (

@@ -1,12 +1,10 @@
 import CardSlider from "@/components/modules/CardSlider"
 import SectionHeaders from "@/components/modules/SectionHeaders"
-import { apiFetch } from "@/services/api"
 import { courseType } from "@/types/course"
 
 import heartIcon from "@iconify-icons/solar/heart-bold"
 
-async function PopularCourses() {
-  const courses: courseType[] = await apiFetch('/courses')
+function PopularCourses({courses}: {courses: courseType[]}) {
 
   const filterCourses = courses.filter(course => course.discount === 0)
 
