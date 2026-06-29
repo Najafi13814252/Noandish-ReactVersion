@@ -8,9 +8,12 @@ import Link from "next/link"
 import panel from "@/data/dashboard"
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { AuthContext } from "@/contexts/Auth"
 
 function Dashboard() {
+    const { user } = useContext(AuthContext)
+
     const [open, setOpen] = useState(false)
     const pathname = usePathname();
     const router = useRouter()
@@ -28,8 +31,8 @@ function Dashboard() {
                     <div className="flex flex-col items-center gap-4 border-b border-b-gray-200 pb-4 dark:border-b-gray-800">
                         <img className="w-20 h-20 lg:w-32 lg:h-32 rounded-full object-cover" src="/images/person.webp" alt="teacher_profile" />
                         <div className="flex flex-col items-center gap-2 dark:text-white">
-                            <span className="font-medium">امیرحسین نجفی</span>
-                            <span className="text-gray-500">09374826032</span>
+                            <span className="font-medium">{user?.firstname} {user?.lastname}</span>
+                            <span className="text-gray-500">{user?.email}</span>
                         </div>
                     </div>
 
@@ -54,7 +57,7 @@ function Dashboard() {
                 </div >
             </aside >
 
-            <div className="lg:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 z-20">
+            <div className="lg:hidden absolute -bottom-4.5 left-1/2 -translate-x-1/2 z-20">
                 <button className="bg-main-100 text-white p-1.5 rounded-lg shadow-md"
                     onClick={() => setOpen(!open)}>
                     <Icon icon={bottomIcon}

@@ -141,13 +141,16 @@ export default function SignupForm({ onSubmit, loading }: Props) {
                             required: 'رمز عبور را وارد کنید',
                             minLength: {
                                 value: 8,
-                                message: 'رمز عبور یا ایمیل حداقل باید شامل 4 حرف باشد'
+                                message: 'رمز عبور حداقل باید شامل 8 حرف باشد'
                             },
                             maxLength: {
                                 value: 30,
-                                message: 'رمز عبور یا ایمیل حداکثر باید شامل 30 حرف باشد'
+                                message: 'رمز عبور حداکثر باید شامل 30 حرف باشد'
                             },
-                            pattern: /^(?=.*[A-Za-z])(?=.*\d)/
+                            pattern: {
+                                value: /^(?=.*[A-Za-z0-9])(?=.*\d)/,
+                                message: 'رمز عبور باید شامل حروف و اعداد باشد'
+                            }
                         })}
                     />
 

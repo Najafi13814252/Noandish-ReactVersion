@@ -4,6 +4,7 @@ import { AuthContext } from "@/contexts/Auth";
 import { authService } from "@/services/auth";
 import { LoginFormValues, SignupFormValues } from "@/types/auth";
 import { useRouter } from "next/navigation";
+import { relative } from "path";
 import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -22,10 +23,20 @@ function useRegister(onSuccess?: () => void) {
             onSuccess?.()
             router.push('/');
             toast.success('ورود با موفقیت انجام شد', {
-                duration: 3000
+                duration: 3000,
+                style: {
+                    position: 'relative',
+                    zIndex: 9999
+                }
             })
         } catch {
-            toast.error('نام‌کاربری یا ایمیل و یا رمز عبور اشتباه است')
+            toast.error('نام‌کاربری یا ایمیل و یا رمز عبور اشتباه است', {
+                duration: 3000,
+                style: {
+                    position: 'relative',
+                    zIndex: 9999
+                }
+            })
         } finally {
             setLoading(false)
         }
@@ -39,10 +50,20 @@ function useRegister(onSuccess?: () => void) {
             onSuccess?.()
             router.push('/');
             toast.success('ثبت‌نام با موفقیت انجام شد', {
-                duration: 3000
+                duration: 3000,
+                style: {
+                    position: 'relative',
+                    zIndex: 9999
+                }
             })
         } catch {
-            toast.error('نام‌کاربری یا ایمیل و یا رمز عبور اشتباه است')
+            toast.error('نام‌کاربری یا ایمیل و یا رمز عبور اشتباه است', {
+                duration: 3000,
+                style: {
+                    position: 'relative',
+                    zIndex: 9999
+                }
+            })
         } finally {
             setLoading(false)
         }

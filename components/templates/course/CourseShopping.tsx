@@ -70,10 +70,10 @@ function CourseShopping({ course }: { course: courseType }) {
                         <Icon className="text-2xl" icon={cartIcon} />
                         <span className="font-medium text-lg">افزودن به سبد خرید</span>
                     </button>
-                    <button
+                    {/* <button
                         className="flex items-center p-3 rounded-md bg-sky-50 border border-sky-500 text-sky-500 cursor-pointer hover:bg-sky-100 duration-200 dark:bg-gray-800 dark:hover:bg-gray-900">
                         <Icon className="text-xl" icon={saveIcon} />
-                    </button>
+                    </button> */}
                 </div>
 
                 {/* course features */}

@@ -2,6 +2,7 @@
 
 import { authService } from "@/services/auth";
 import React, { createContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 type User = {
     id: number;
@@ -47,8 +48,15 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     // logout
     const logout = async () => {
-        await authService.logout();
-        setUser(null);
+        try {
+            await authService.logout();
+            setUser(null);
+        } finally {
+            toast.success('خروج با موفقیت انجام شد', {
+                duration: 3000
+            })
+        }
+
     };
 
     return (

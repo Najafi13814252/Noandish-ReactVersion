@@ -11,9 +11,7 @@ function LearningCard({ myCourses }: { myCourses: MyCourseType[] }) {
             {myCourses.map(course => (
                 <div key={course.id} className="relative border border-gray-300 rounded-lg p-2 flex flex-col gap-3 bg-white hover:scale-105 active:scale-95 transition-transform duration-200 dark:bg-darkMode dark:border-gray-700">
 
-                    <Link href={`/courses/${course.id}`}>
-                        <Image src={course.image} width={400} height={250} className="w-full h-40 object-cover rounded-lg border border-gray-200" loading="lazy" alt="Course_Image" />
-                    </Link>
+                    <Image src={course.image} width={400} height={250} className="w-full h-40 object-cover rounded-lg border border-gray-200" loading="lazy" alt="Course_Image" />
 
                     {/* course title */}
                     <p className="text-lg font-medium dark:text-white">{course.title}</p>
