@@ -2,9 +2,9 @@
 
 import { Icon } from "@iconify/react"
 import courseIcon from '@iconify-icons/solar/notebook-minimalistic-linear'
-import { apiFetch } from "@/services/api"
 import { CourseTeacherType } from "@/types/course-teacher"
 import { useEffect, useState } from "react"
+import { teacherCourseAction } from "@/actions/course-action"
 
 function AboutTeacher({ courseId }: { courseId: number }) {
 
@@ -13,7 +13,7 @@ function AboutTeacher({ courseId }: { courseId: number }) {
     useEffect(() => {
         const fetchContent = async () => {
             try {
-                const data = await apiFetch(`/courses/${courseId}/teacher`)
+                const data = await teacherCourseAction(courseId)
                 setTeacher(data)
             } catch (error) {
                 console.error(error)

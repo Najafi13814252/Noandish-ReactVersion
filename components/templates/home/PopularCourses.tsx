@@ -1,20 +1,24 @@
+import { courseAction } from "@/actions/course-action"
 import CardSlider from "@/components/modules/CardSlider"
 import SectionHeaders from "@/components/modules/SectionHeaders"
-import { courseType } from "@/types/course"
-
 import heartIcon from "@iconify-icons/solar/heart-bold"
+import { Suspense } from "react"
 
-function PopularCourses({courses}: {courses: courseType[]}) {
-
-  const filterCourses = courses.filter(course => course.discount === 0)
-
+function PopularCourses() {
   return (
     <section>
       <SectionHeaders title="محبوب" iconName={heartIcon} iconColor="text-red-500" />
 
-      <CardSlider courses={filterCourses} />
+      <Suspense>
+        <PopularCoursesList />
+      </Suspense>
     </section>
   )
 }
 
 export default PopularCourses
+
+async function PopularCoursesList() {
+  const { popularCourses } = await courseAction()
+  return <CardSlider courses={popularCourses} />
+}

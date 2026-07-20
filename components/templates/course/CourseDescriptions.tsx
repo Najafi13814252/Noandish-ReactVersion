@@ -3,6 +3,7 @@ import starIcon from '@iconify-icons/solar/star-bold'
 import membersIcon from '@iconify-icons/solar/users-group-two-rounded-line-duotone'
 import chartIcon from '@iconify-icons/solar/chart-line-duotone'
 import { courseType } from "@/types/course"
+import Image from "next/image"
 
 async function CourseDescriptions({course}: {course: courseType}) {
     return (
@@ -43,9 +44,10 @@ async function CourseDescriptions({course}: {course: courseType}) {
                 </div>
             </div>
 
-            <video className="w-full md:w-[420px] lg:w-[480px] xl:w-[520px] rounded-md object-cover" poster="/images/img-1.webp" controls>
-                <source src="/videoTest.mp4" />
-            </video>
+            
+            <div className="w-full h-auto relative">
+                <Image src="/images/img-1.webp" className="rounded-md" fill alt={course.title} loading="lazy"/>
+            </div>
         </div>
     )
 }

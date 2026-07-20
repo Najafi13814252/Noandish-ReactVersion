@@ -7,12 +7,12 @@ import caseIcon from '@iconify-icons/solar/case-linear'
 import languageIcon from '@iconify-icons/solar/global-linear'
 import sappurtIcon from '@iconify-icons/solar/shield-user-linear'
 import tagIcon from '@iconify-icons/solar/tag-outline'
-import saveIcon from '@iconify-icons/solar/bookmark-line-duotone'
+// import saveIcon from '@iconify-icons/solar/bookmark-line-duotone'
 import cartIcon from '@iconify-icons/solar/cart-large-2-bold'
 import { courseType } from "@/types/course"
 import { useContext } from "react"
 import { CartContext } from "@/contexts/cart"
-import toast, { Toaster } from "react-hot-toast"
+import toast from "react-hot-toast"
 
 function CourseShopping({ course }: { course: courseType }) {
 

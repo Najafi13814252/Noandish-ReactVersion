@@ -1,3 +1,7 @@
+"use server"
+
+import { cookies } from "next/headers";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 if (!API_URL) {
@@ -5,10 +9,13 @@ if (!API_URL) {
 }
 
 export async function apiFetch(endpoint: string, options: RequestInit = {}) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
   const response = await fetch(`${API_URL}${endpoint}`, {
-    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
       ...options?.headers,
     },
     ...options
@@ -16,9 +23,10 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
 
   const data = await response.json()
 
-    if (!response.ok) {
-        throw new Error(data.message || 'Request failed')
-    }
+  if (!response.ok) {
+    throw new Error(data.message || 'Request failed')
+  }
 
-    return data
+
+  return { response, data }
 }

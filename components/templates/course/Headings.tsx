@@ -7,8 +7,8 @@ import lockIcon from '@iconify-icons/solar/lock-keyhole-minimalistic-linear'
 import viewIcon from '@iconify-icons/solar/eye-linear'
 import playIcon from '@iconify-icons/solar/play-linear'
 import { useEffect, useState } from "react"
-import { apiFetch } from "@/services/api"
 import { CourseContentsType } from "@/types/course-contents"
+import { contentCourseAction } from "@/actions/course-action"
 
 function Headings({ courseId }: { courseId: number }) {
     const [openHeading, setOpenHeading] = useState<null | number>(null)
@@ -17,7 +17,7 @@ function Headings({ courseId }: { courseId: number }) {
     useEffect(() => {
         const fetchContent = async () => {
             try {
-                const data = await apiFetch(`/courses/${courseId}/content`)
+                const data = await contentCourseAction(courseId)
                 setCourseContents(data)
             } catch (error) {
                 console.error(error)

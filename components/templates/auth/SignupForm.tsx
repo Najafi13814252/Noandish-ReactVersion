@@ -1,21 +1,58 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { SignupFormValues } from '@/types/auth';
+import { Controller, useForm } from 'react-hook-form';
 import { Icon } from '@iconify/react';
 import unviewIcon from '@iconify-icons/solar/eye-closed-outline'
 import viewIcon from '@iconify-icons/solar/eye-outline'
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
+import z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signupSchema } from '@/schemas/auth';
+import { useRouter } from 'next/navigation';
+import { signupAction } from '@/actions/auth-action';
+import toast from 'react-hot-toast';
 
-type Props = {
-    onSubmit: (data: SignupFormValues) => void;
-    loading: boolean;
-};
-
-export default function SignupForm({ onSubmit, loading }: Props) {
-    const { register, handleSubmit, formState: { errors }, } = useForm<SignupFormValues>();
-
+export default function SignupForm({ onSuccess }: { onSuccess?: () => void }) {
     const [passType, setPassType] = useState<'password' | 'text'>('password')
+
+    const [isPending, startTransition] = useTransition()
+
+    const router = useRouter()
+
+    const form = useForm({
+        resolver: zodResolver(signupSchema),
+        defaultValues: {
+            firstname: "",
+            lastname: "",
+            email: "",
+            username: "",
+            password: ""
+        }
+    })
+
+    const onSubmit = (data: z.infer<typeof signupSchema>) => {
+        startTransition(async () => {
+            try {
+                const result = await signupAction(data)
+                if (!result?.success) {
+                    toast.error(result?.message || '', {
+                        style: {
+                            fontSize: '0.84rem',
+                            border: 'solid 1px red',
+                            background: 'oklch(97.1% 0.013 17.38)',
+                            color: 'red',
+                        }
+                    })
+                } else {
+                    toast.success("ثبت‌نام با موفقیت انجام شد")
+                    onSuccess?.()
+                    router.push("/")
+                }
+            } catch {
+                toast.error("ثبت‌نام ناموفق بود")
+            }
+        })
+    }
 
     const handlePassType = () => {
         if (passType === 'password') {
@@ -26,144 +63,104 @@ export default function SignupForm({ onSubmit, loading }: Props) {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center mx-auto gap-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col items-center mx-auto gap-6">
 
             <div className='flex gap-2 items-center'>
                 {/* نام */}
-                <div className='register-forms_style'>
-                    <input
-                        placeholder="نام"
-                        className={`register-form ${errors.firstname ? 'register-form_error' : 'register-form_true'}`}
-                        {...register('firstname', {
-                            required: 'نام را وارد کنید',
-                            minLength: {
-                                value: 4,
-                                message: 'نام حداقل باید شامل 4 حرف باشد'
-                            },
-                            maxLength: {
-                                value: 30,
-                                message: 'نام حداکثر باید شامل 30 حرف باشد'
-                            },
-                        })} />
-
-                    {errors.firstname && (
-                        <p className="text-red-500 text-sm">{errors.firstname?.message}</p>
-                    )}
-                </div>
-
+                <Controller name='firstname' control={form.control} render={({ field, fieldState }) => (
+                    <div className='register-forms_style'>
+                        <input
+                            className={`register-form ${fieldState.invalid ? 'register-form_error' : 'register-form_true'}`}
+                            aria-invalid={fieldState.invalid}
+                            {...field}
+                            type="text"
+                            placeholder="نام"
+                        />
+                        {fieldState.invalid && (
+                            <p className='text-red-500 text-sm'>{fieldState.error?.message}</p>
+                        )}
+                    </div>
+                )}>
+                </Controller>
 
                 {/* نام خانوادگی */}
-                <div className='register-forms_style'>
-                    <input
-                        placeholder="نام‌خانوادگی"
-                        className={`register-form ${errors.lastname ? 'register-form_error' : 'register-form_true'}`}
-                        {...register('lastname', {
-                            required: 'نام‌خانوادگی را وارد کنید',
-                            minLength: {
-                                value: 4,
-                                message: 'نام‌خانوادگی حداقل باید شامل 4 حرف باشد'
-                            },
-                            maxLength: {
-                                value: 30,
-                                message: 'نام‌خانوادگی حداکثر باید شامل 30 حرف باشد'
-                            },
-                        })} />
-
-                    {errors.lastname && (
-                        <p className="text-red-500 text-sm">{errors.lastname?.message}</p>
-                    )}
-                </div>
+                <Controller name='lastname' control={form.control} render={({ field, fieldState }) => (
+                    <div className='register-forms_style'>
+                        <input
+                            className={`register-form ${fieldState.invalid ? 'register-form_error' : 'register-form_true'}`}
+                            aria-invalid={fieldState.invalid}
+                            {...field}
+                            type="text"
+                            placeholder="نام‌خانوادگی"
+                        />
+                        {fieldState.invalid && (
+                            <p className='text-red-500 text-sm'>{fieldState.error?.message}</p>
+                        )}
+                    </div>
+                )}>
+                </Controller>
             </div>
 
 
             {/* ایمیل */}
-            <div className='register-forms_style'>
-                <input
-                    placeholder="ایمیل"
-                    className={`register-form ${errors.email ? 'register-form_error' : 'register-form_true'}`}
-                    {...register('email', {
-                        required: 'ایمیل را وارد کنید',
-                        minLength: {
-                            value: 4,
-                            message: 'ایمیل حداقل باید شامل 4 حرف باشد'
-                        },
-                        maxLength: {
-                            value: 30,
-                            message: 'ایمیل حداکثر باید شامل 30 حرف باشد'
-                        },
-                        pattern: {
-                            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                            message: 'ایمیل معتبر نیست'
-                        }
-                    })} />
-
-                {errors.email && (
-                    <p className="text-red-500 text-sm">{errors.email?.message}</p>
-                )}
-            </div>
+            <Controller name='email' control={form.control} render={({ field, fieldState }) => (
+                <div className='register-forms_style'>
+                    <input
+                        className={`register-form ${fieldState.invalid ? 'register-form_error' : 'register-form_true'}`}
+                        aria-invalid={fieldState.invalid}
+                        {...field}
+                        type="text"
+                        placeholder="ایمیل"
+                    />
+                    {fieldState.invalid && (
+                        <p className='text-red-500 text-sm'>{fieldState.error?.message}</p>
+                    )}
+                </div>
+            )}>
+            </Controller>
 
 
             {/* نام کاربری */}
-            <div className='register-forms_style'>
-                <input
-                    placeholder="نام‌کاربری"
-                    className={`register-form ${errors.username ? 'register-form_error' : 'register-form_true'}`}
-                    {...register('username', {
-                        required: 'نام‌کاربری را وارد کنید',
-                        minLength: {
-                            value: 4,
-                            message: 'نام‌کاربری حداقل باید شامل 4 حرف باشد'
-                        },
-                        maxLength: {
-                            value: 30,
-                            message: 'نام‌کاربری حداکثر باید شامل 30 حرف باشد'
-                        },
-                        pattern: {
-                            value: /^[a-zA-Z0-9_\-@$]{4,30}$/,
-                            message: 'نام کاربری باید شامل حروف، اعداد و کاراکترهای -، _، @، $ باشد'
-                        }
-                    })} />
-
-                {errors.username && (
-                    <p className="text-red-500 text-sm">{errors.username?.message}</p>
-                )}
-            </div>
+            <Controller name='username' control={form.control} render={({ field, fieldState }) => (
+                <div className='register-forms_style'>
+                    <input
+                        className={`register-form ${fieldState.invalid ? 'register-form_error' : 'register-form_true'}`}
+                        aria-invalid={fieldState.invalid}
+                        {...field}
+                        type="text"
+                        placeholder="نام‌کاربری"
+                    />
+                    {fieldState.invalid && (
+                        <p className='text-red-500 text-sm'>{fieldState.error?.message}</p>
+                    )}
+                </div>
+            )}>
+            </Controller>
 
 
             {/* رمز عبور */}
-            <div className='register-forms_style'>
-                <div className={`register-form flex items-center justify-between ${errors.password ? 'register-form_error' : 'register-form_true'}`}>
-                    <input
-                        className='outline-none'
-                        type={passType}
-                        placeholder="رمز عبور"
-                        {...register('password', {
-                            required: 'رمز عبور را وارد کنید',
-                            minLength: {
-                                value: 8,
-                                message: 'رمز عبور حداقل باید شامل 8 حرف باشد'
-                            },
-                            maxLength: {
-                                value: 30,
-                                message: 'رمز عبور حداکثر باید شامل 30 حرف باشد'
-                            },
-                            pattern: {
-                                value: /^(?=.*[A-Za-z0-9])(?=.*\d)/,
-                                message: 'رمز عبور باید شامل حروف و اعداد باشد'
-                            }
-                        })}
-                    />
+            <Controller name='password' control={form.control} render={({ field, fieldState }) => (
+                <div className='register-forms_style'>
+                    <div className={`register-form flex items-center justify-between ${fieldState.invalid ? 'register-form_error' : 'register-form_true'}`}>
+                        <input
+                            className="outline-none"
+                            aria-invalid={fieldState.invalid}
+                            {...field}
+                            type={passType}
+                            placeholder="رمز عبور را وارد کنید"
+                        />
 
-                    <Icon icon={passType === 'password' ? viewIcon : unviewIcon} className='text-gray-500 text-xl cursor-pointer' onClick={handlePassType} />
+                        <Icon icon={passType === 'password' ? viewIcon : unviewIcon} className='text-gray-500 text-xl cursor-pointer' onClick={handlePassType} />
+                    </div>
+                    {fieldState.invalid && (
+                        <p className='text-red-500 text-sm'>{fieldState.error?.message}</p>
+                    )}
                 </div>
-
-                {errors.password && (
-                    <p className="text-red-500 text-sm">{errors.password?.message}</p>
-                )}
-            </div>
+            )}>
+            </Controller>
 
             <button className="button-register_form" type="submit">
-                {loading ? <Icon icon="svg-spinners:gooey-balls-1" className='mx-auto text-3xl' /> : 'ثبت‌نام'}
+                {isPending ? <Icon icon="svg-spinners:gooey-balls-1" className='mx-auto text-3xl' /> : 'ثبت‌نام'}
             </button>
         </form>
     );

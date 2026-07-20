@@ -1,8 +1,7 @@
 "use client"
 
-import { authService } from "@/services/auth";
-import React, { createContext, useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { getMe } from "@/actions/auth-action";
+import React, { createContext, useCallback, useEffect, useState } from "react";
 
 type User = {
     id: number;
@@ -15,8 +14,7 @@ type User = {
 type AuthContextType = {
     user: User | null;
     loading: boolean;
-    logout: () => Promise<void>;
-    refreshUser: () => Promise<void>
+     refetchUser: () => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType)
@@ -26,46 +24,27 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [loading, setLoading] = useState(true) // لود اولیه
 
     // گرفتن user از me 
-    const refreshUser = async () => {
+    const refetchUser = useCallback(async () => {
         try {
-            const data = await authService.me()
-            setUser(data?.user || null)
+            const result = await getMe();
+            setUser(result.user);
         } catch {
-            setUser(null)
-        }
-    }
-
-    useEffect(() => {
-        const initAuth = async () => {
-            try {
-                await refreshUser()
-            } finally {
-                setLoading(false)
-            }
-        }
-        initAuth()
-    }, [])
-
-    // logout
-    const logout = async () => {
-        try {
-            await authService.logout();
             setUser(null);
         } finally {
-            toast.success('خروج با موفقیت انجام شد', {
-                duration: 3000
-            })
+            setLoading(false);
         }
+    }, []);
 
-    };
+    useEffect(() => {
+        refetchUser();
+    }, [refetchUser]);
 
     return (
         <AuthContext.Provider
             value={{
                 user,
                 loading,
-                logout,
-                refreshUser
+                refetchUser
             }}
         >
             {children}

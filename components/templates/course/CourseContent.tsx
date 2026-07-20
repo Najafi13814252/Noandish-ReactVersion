@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Description from './Description';
 import Headings from './Headings';
-import Comments from './Comments';
+// import Comments from './Comments';
 import AboutTeacher from './AboutTeacher';
 import { courseType } from '@/types/course';
 
@@ -15,7 +15,7 @@ const CourseContent = ({course}: {course: courseType}) => {
 
     const descriptionRef = useRef<HTMLElement>(null);
     const headingsRef = useRef<HTMLElement>(null);
-    const commentsRef = useRef<HTMLElement>(null);
+    // const commentsRef = useRef<HTMLElement>(null);
     const aboutTeacherRef = useRef<HTMLElement>(null);
 
     const sectionRefs: Record<SectionId, React.RefObject<HTMLElement | null>> = {

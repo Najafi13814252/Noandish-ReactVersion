@@ -4,11 +4,9 @@ import Image from 'next/image';
 import { useState } from 'react';
 import LoginForm from '../templates/auth/LoginForm';
 import SignupForm from '../templates/auth/SignupForm';
-import useRegister from '@/hooks/useRegister';
 
 const Register = ({onSuccess}: {onSuccess?: () => void}) => {
     const [mode, setMode] = useState<'login' | 'signup'>('login');
-    const { handleLogin, handleSignup, loading } = useRegister(onSuccess);
 
     const description = mode === 'login'
         ? 'به صفحه ورود نواندیش خوش‌ برگشتید'
@@ -36,9 +34,9 @@ const Register = ({onSuccess}: {onSuccess?: () => void}) => {
             </div>
 
             {mode === 'login' ? (
-                <LoginForm onSubmit={handleLogin} loading={loading}/>
+                <LoginForm onSuccess={onSuccess}/>
             ) : (
-                <SignupForm onSubmit={handleSignup} loading={loading}/>
+                <SignupForm onSuccess={onSuccess}/>
             )}
 
             <button

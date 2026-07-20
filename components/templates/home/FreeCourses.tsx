@@ -1,19 +1,25 @@
+import { courseAction } from "@/actions/course-action"
 import CardSlider from "@/components/modules/CardSlider"
 import SectionHeaders from "@/components/modules/SectionHeaders"
-import { apiFetch } from "@/services/api"
-import { courseType } from "@/types/course"
 import fireIcon from "@iconify-icons/solar/fire-bold"
+import { Suspense } from "react"
 
-function FreeCourses({courses}: {courses: courseType[]}) {
-    const filterCourses = courses.filter(course => course.discount === 100)
-
+function FreeCourses() {
     return (
         <section>
             <SectionHeaders title="رایگان" iconName={fireIcon} iconColor="text-orange-500" />
 
-            <CardSlider courses={filterCourses} />
+            <Suspense>
+                <FreeCoursesList />
+            </Suspense>
         </section>
     )
 }
 
 export default FreeCourses
+
+// جدا مینویسیم تا SectionHeaders الکی منتظر دیتا نماند
+async function FreeCoursesList() {
+    const { freeCourses } = await courseAction()
+    return <CardSlider courses={freeCourses} />
+}

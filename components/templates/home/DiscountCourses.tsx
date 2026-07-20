@@ -1,19 +1,24 @@
+import { courseAction } from "@/actions/course-action"
 import CardSlider from "@/components/modules/CardSlider"
 import SectionHeaders from "@/components/modules/SectionHeaders"
-import { courseType } from "@/types/course"
 import discountIcon from "@iconify-icons/solar/sale-bold"
+import { Suspense } from "react"
 
-function DiscountCourses({courses}: {courses: courseType[]}) {
-
-    const filterCourses = courses.filter(course => course.discount !== 0 && course.discount !== 100)
-
+function DiscountCourses() {
     return (
         <section>
             <SectionHeaders title="تخفیفی" iconName={discountIcon} iconColor="text-sky-500" />
 
-            <CardSlider courses={filterCourses} />
+            <Suspense>
+                <DiscountCoursesList />
+            </Suspense>
         </section>
     )
 }
 
 export default DiscountCourses
+
+async function DiscountCoursesList() {
+    const { discountCourses } = await courseAction()
+    return <CardSlider courses={discountCourses} />
+}

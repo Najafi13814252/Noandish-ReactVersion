@@ -15,25 +15,11 @@ export interface SignupPayload {
 
 export const authService = {
     // => user: {id, firstname, lastname, email, username}
-    me() {
-        return apiFetch('/auth/me', {
+    async me() {
+        const {data} = await apiFetch('/auth/me', {
             method: 'GET'
         })
-    },
-
-    // => user: {id, email, username}
-    login(payload: LoginPayload) {
-        return apiFetch('/auth/signin', {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        })
-    },
-
-    signup(payload: SignupPayload) {
-        return apiFetch('/auth/signup', {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        })
+        return data
     },
 
     logout() {
