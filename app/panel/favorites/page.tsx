@@ -1,12 +1,9 @@
-'use client'
-
+import { getFavoriteCourseAction } from "@/actions/course-action"
 import FavoriteCard from "@/components/modules/FavoriteCard"
-import { FavoritesContext } from "@/contexts/favorites"
-import { useContext } from "react"
 
-function Favorites() {
+async function Favorites() {
 
-    const { favorites } = useContext(FavoritesContext)
+    const favorites = await getFavoriteCourseAction()
 
     return (
         <div className="flex flex-col gap-10">

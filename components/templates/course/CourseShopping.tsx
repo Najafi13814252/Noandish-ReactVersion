@@ -52,12 +52,12 @@ function CourseShopping({ course }: { course: courseType }) {
                         {course.discount !== 0 && (
                             <>
                                 <p className="bg-rose-500 text-white px-2 font-semibold rounded">{course.discount}%</p>
-                                <p className="line-through text-gray-400 self-end">{(course.price).toLocaleString()}</p>
+                                <p className="line-through text-gray-400 self-end">{(course.price).toLocaleString('fa-ir')}</p>
                             </>
                         )}
                     </div>
                     <div className="flex items-center gap-1">
-                        <span className="text-2xl font-bold dark:text-white">{(course.price - ((course.price * course.discount) / 100)).toLocaleString()}</span>
+                        <p className="text-2xl font-bold dark:text-white">{(course.price - ((course.price * course.discount) / 100)).toLocaleString('fa-ir')}</p>
                         <span className="text-sm text-gray-400">تومان</span>
                     </div>
                 </div>

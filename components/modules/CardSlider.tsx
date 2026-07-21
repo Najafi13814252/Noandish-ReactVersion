@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic"
 import { courseType } from "@/types/course"
-import SkeletonCard from "@/app/loading/SkeletonCard"
+import SkeletonCard from "@/components/loading/SkeletonCard"
 
 const CardSliderInner = dynamic(() => import("./CardSliderInner"), {
     ssr: false,

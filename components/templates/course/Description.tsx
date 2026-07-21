@@ -3,7 +3,6 @@ import checkIcon from '@iconify-icons/solar/check-circle-linear'
 import fileIcon from '@iconify-icons/solar/file-text-line-duotone'
 import closeIcon from '@iconify-icons/solar/close-circle-linear'
 
-
 function Description({ prerequisites }: { prerequisites: string[] }) {
     return (
         <div className="text-gray-800">

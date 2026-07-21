@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { Icon } from "@iconify/react"
 import saveIcon from '@iconify-icons/solar/bookmark-line-duotone'
@@ -10,39 +10,16 @@ import starIcon from '@iconify-icons/solar/star-bold'
 import Image from "next/image"
 import { courseType } from "@/types/course"
 import Link from "next/link"
-import { useContext } from "react"
-import { FavoritesContext } from "@/contexts/favorites"
-import toast from "react-hot-toast"
-import { AuthContext } from "@/contexts/Auth"
+import { toggleFavoriteCourseAction } from "@/actions/course-action"
+import { useState } from "react"
 
-const Card: React.FC<courseType> = ({ id, image_url, title, lessons, members, duration, teacher_name, points, price, discount }) => {
 
-    const { toggleFavorite, isFavorite } = useContext(FavoritesContext)
-    const { user } = useContext(AuthContext)
+const Card: React.FC<courseType> = ({ id, image_url, title, lessons, members, duration, teacher_name, points, price, discount, favorite }) => {
+    const [isFavorite, setIsFavorite] = useState(favorite)
 
     const handleToggleFavorite = async (courseId: number) => {
-        if (user) {
-            if (isFavorite(courseId)) {
-                await toggleFavorite(courseId)
-                toast.success('دوره از علاقه‌مندی‌ها حذف شد', {
-                    duration: 4000,
-                    position: 'top-center'
-                })
-            } else {
-                await toggleFavorite(courseId)
-                toast.success('دوره به علاقه‌مندی‌ها اضافه شد', {
-                    duration: 4000,
-                    position: 'top-center'
-                })
-            }
-        } else {
-            toast('وارد حساب کاربری خود شودید',
-                {
-                    icon: '🟡',
-                }
-            );
-        }
-
+        const result = await toggleFavoriteCourseAction(courseId)
+        setIsFavorite(result)
     }
 
     return (
@@ -62,7 +39,7 @@ const Card: React.FC<courseType> = ({ id, image_url, title, lessons, members, du
                     <Link href={`/courses/${id}`}>
                         <p className="text-lg font-bold text-gray-800 dark:text-white">{title}</p>
                     </Link>
-                    <Icon className="text-lg text-main-100 hover:scale-125 duration-200 cursor-pointer disabled:opacity-50" icon={isFavorite(id) ? saveFavoriteIcon : saveIcon} onClick={() => handleToggleFavorite(id)} />
+                    <Icon className="text-lg text-main-100 hover:scale-125 duration-200 cursor-pointer disabled:opacity-50" icon={isFavorite ? saveFavoriteIcon : saveIcon} onClick={() => handleToggleFavorite(id)} />
                 </div>
 
 

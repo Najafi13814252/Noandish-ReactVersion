@@ -1,27 +1,13 @@
-'use client'
-
 import { Icon } from "@iconify/react"
 import courseIcon from '@iconify-icons/solar/notebook-minimalistic-linear'
-import { CourseTeacherType } from "@/types/course-teacher"
-import { useEffect, useState } from "react"
 import { teacherCourseAction } from "@/actions/course-action"
 
-function AboutTeacher({ courseId }: { courseId: number }) {
+async function AboutTeacher({ courseId }: { courseId: number }) {
 
-    const [teacher, setTeacher] = useState<CourseTeacherType | null>(null)
+    await new Promise((resolve) => setTimeout(resolve, 2000))
 
-    useEffect(() => {
-        const fetchContent = async () => {
-            try {
-                const data = await teacherCourseAction(courseId)
-                setTeacher(data)
-            } catch (error) {
-                console.error(error)
-            }
-        }
+    const teacher = await teacherCourseAction(courseId)
 
-        fetchContent()
-    }, [courseId])
     return (
         <div className="border border-gray-200 bg-white p-4 rounded-lg text-gray-800 dark:bg-darkMode dark:text-white dark:border-gray-800">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-10">
