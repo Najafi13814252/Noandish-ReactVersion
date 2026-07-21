@@ -40,13 +40,7 @@ export default function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
     startTransition(async () => {
       try {
         await loginAction(data)
-        toast.success("ورود با موفقیت انجام شد", {
-          style: {
-            border: 'solid 1px green',
-            background: 'oklch(98.2% 0.018 155.826)',
-            color: 'green',
-          }
-        })
+        toast.success("ورود با موفقیت انجام شد")
         onSuccess?.()
         await refetchUser()
         router.push("/")

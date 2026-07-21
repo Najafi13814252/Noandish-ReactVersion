@@ -7,7 +7,6 @@ import Navbar from "@/components/modules/navbar/Navbar";
 import Newsletter from "@/components/modules/Newsletter";
 import Footer from "@/components/modules/Footer";
 import AuthProvider from "@/contexts/Auth";
-import FavoriteProvider from "@/contexts/favorites";
 import CartProvider from "@/contexts/cart";
 import { Toaster } from "react-hot-toast";
 
@@ -64,7 +63,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ThemeProvider>
           <AuthProvider>
             <CartProvider>
-              <FavoriteProvider>
                 <Navbar />
 
                 <main>
@@ -78,8 +76,24 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                   </div>
                 </footer>
 
-                <Toaster />
-              </FavoriteProvider>
+                <Toaster toastOptions={{
+                  success: {
+                    duration: 4000,
+                    style: {
+                      border: 'solid 1px oklch(72.3% 0.219 149.579)',
+                      color: 'oklch(72.3% 0.219 149.579)',
+                      backgroundColor: '#f0fdf4'
+                    }
+                  },
+                  error: {
+                    duration: 4000,
+                    style: {
+                      border: 'solid 1px #fb2c36',
+                      color: '#fb2c36',
+                      backgroundColor: '#fef2f2'
+                    }
+                  }
+                }} />
             </CartProvider>
           </AuthProvider>
         </ThemeProvider>

@@ -37,10 +37,7 @@ export default function SignupForm({ onSuccess }: { onSuccess?: () => void }) {
                 if (!result?.success) {
                     toast.error(result?.message || '', {
                         style: {
-                            fontSize: '0.84rem',
-                            border: 'solid 1px red',
-                            background: 'oklch(97.1% 0.013 17.38)',
-                            color: 'red',
+                            fontSize: '0.84rem'
                         }
                     })
                 } else {

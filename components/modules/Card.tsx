@@ -11,15 +11,35 @@ import Image from "next/image"
 import { courseType } from "@/types/course"
 import Link from "next/link"
 import { toggleFavoriteCourseAction } from "@/actions/course-action"
-import { useState } from "react"
+import { useState, useTransition } from "react"
+import toast from "react-hot-toast"
 
 
 const Card: React.FC<courseType> = ({ id, image_url, title, lessons, members, duration, teacher_name, points, price, discount, favorite }) => {
     const [isFavorite, setIsFavorite] = useState(favorite)
 
-    const handleToggleFavorite = async (courseId: number) => {
-        const result = await toggleFavoriteCourseAction(courseId)
-        setIsFavorite(result)
+    const [isPending, startTransition] = useTransition()
+
+    const handleToggleFavorite = (courseId: number) => {
+        startTransition(async () => {
+            if (favorite) {
+                const result = await toggleFavoriteCourseAction(courseId)
+                setIsFavorite(result)
+                toast.success("دوره با موفقیت از لیست علاقه‌مندی‌ها حذف شد", {
+                    style: {
+                        fontSize: '0.9rem'
+                    }
+                })
+            } else {
+                const result = await toggleFavoriteCourseAction(courseId)
+                setIsFavorite(result)
+                toast.success("دوره با موفقیت به لیست علاقه‌مندی‌ها اضافه شد", {
+                    style: {
+                        fontSize: '0.9rem'
+                    }
+                })
+            }
+        })
     }
 
     return (
@@ -39,7 +59,11 @@ const Card: React.FC<courseType> = ({ id, image_url, title, lessons, members, du
                     <Link href={`/courses/${id}`}>
                         <p className="text-lg font-bold text-gray-800 dark:text-white">{title}</p>
                     </Link>
-                    <Icon className="text-lg text-main-100 hover:scale-125 duration-200 cursor-pointer disabled:opacity-50" icon={isFavorite ? saveFavoriteIcon : saveIcon} onClick={() => handleToggleFavorite(id)} />
+                    <Icon className="text-lg text-main-100 hover:scale-125 duration-200 cursor-pointer disabled:opacity-50"
+                        // icon={isFavorite ? saveFavoriteIcon : saveIcon}
+                        icon={isPending ? 'svg-spinners:gooey-balls-1' : isFavorite ? saveFavoriteIcon : saveIcon}
+                        onClick={() => handleToggleFavorite(id)}
+                    />
                 </div>
 
 

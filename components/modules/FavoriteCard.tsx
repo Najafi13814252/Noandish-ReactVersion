@@ -7,23 +7,24 @@ import Image from "next/image"
 import Link from "next/link"
 import { FavoritesType } from "@/types/favorites"
 import Modal from "../modals/Modal"
-import { useContext } from "react"
-import { FavoritesContext } from "@/contexts/favorites"
+import { useTransition } from "react"
 import toast from "react-hot-toast"
 import useDeleteModal from "@/hooks/useDeleteModal"
+import { toggleFavoriteCourseAction } from "@/actions/course-action"
 
 function FavoriteCard({ myCourses }: { myCourses: FavoritesType }) {
-    const { toggleFavorite, loading } = useContext(FavoritesContext)
+    const [isPending, startTransition] = useTransition()
+    const { courseTitle, itemId, showDeleteModal, isOpen, closeModal } = useDeleteModal()
 
-    const {courseTitle, itemId, showDeleteModal, isOpen, closeModal} = useDeleteModal()
-
-    const handleDeleteFavorite = async () => {
-        try {
-            await toggleFavorite(itemId)
-        } finally {
-            closeModal()
-            toast.success('دوره از لیست علاقه‌مندی‌ها حذف شد')
-        }
+    const handleDeleteFavorite = () => {
+        startTransition(async () => {
+            try {
+                await toggleFavoriteCourseAction(itemId)
+            } finally {
+                closeModal()
+                toast.success('دوره از لیست علاقه‌مندی‌ها حذف شد')
+            }
+        })
     }
     return (
         <>
@@ -67,7 +68,7 @@ function FavoriteCard({ myCourses }: { myCourses: FavoritesType }) {
                     <p className="font-medium text-center">{`آیا میخواهید دوره " ${courseTitle} " را از علاقه‌مندی‌های خود حذف کنید؟`}</p>
                     <button className="text-white bg-red-500 font-medium w-full text-lg py-2 rounded-md cursor-pointer hover:bg-red-600 duration-200"
                         onClick={handleDeleteFavorite}>
-                        {loading ? <Icon icon='svg-spinners:gooey-balls-1' className="mx-auto text-2xl" /> : 'حذف'}
+                        {isPending ? <Icon icon='svg-spinners:gooey-balls-1' className="mx-auto text-2xl" /> : 'حذف'}
                     </button>
                 </div>
             </Modal>
