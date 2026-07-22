@@ -24,9 +24,10 @@ function Navbar() {
 
     const { theme, toggleTheme } = useContext(ThemeContext)
     const { cartItems } = useContext(CartContext)
-
     const { user, loading } = useContext(AuthContext)
+
     const [showCategories, setShowCategories] = useState(false)
+    
     const { isOpen, openModal, closeModal } = useModal()
 
     return (

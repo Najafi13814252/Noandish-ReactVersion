@@ -1,16 +1,13 @@
-'use client'
-
 import CartItems from "@/components/templates/cart/CartItems"
 import PaymentCard from "@/components/templates/cart/PaymentCard"
 import { Icon } from "@iconify/react"
 import headerIcon from '@iconify-icons/solar/lightbulb-line-duotone'
 import cartIcon from "@iconify-icons/solar/cart-5-bold"
-import { useContext } from "react"
-import { CartContext } from "@/contexts/cart"
+import { cartItemsAction } from "@/actions/cart-action"
 
-function Cart() {
+async function Cart() {
 
-    const { cartItems } = useContext(CartContext)
+    const cartItems = await cartItemsAction()
 
     return (
         <div className="px-4 lg:px-10 pb-10 pt-5 flex flex-col gap-5">

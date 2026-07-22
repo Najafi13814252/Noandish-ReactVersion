@@ -10,13 +10,16 @@ import tagIcon from '@iconify-icons/solar/tag-outline'
 // import saveIcon from '@iconify-icons/solar/bookmark-line-duotone'
 import cartIcon from '@iconify-icons/solar/cart-large-2-bold'
 import { courseType } from "@/types/course"
-import { useContext } from "react"
-import { CartContext } from "@/contexts/cart"
+import { useContext, useTransition } from "react"
 import toast from "react-hot-toast"
+import { addCartAction } from "@/actions/cart-action"
+import { CartContext } from "@/contexts/cart"
 
 function CourseShopping({ course }: { course: courseType }) {
 
-    const { addCart, cartItems } = useContext(CartContext)
+    const [isPending, startTransition] = useTransition()
+
+    const {refetchCart} = useContext(CartContext)
 
     const features = [
         { id: 1, title_1: 'جلسات', title_2: course.lessons, icon_name: notebookIcon },
@@ -27,20 +30,16 @@ function CourseShopping({ course }: { course: courseType }) {
         { id: 6, title_1: 'نوع دوره', title_2: course.discount === 100 ? 'رایگان' : 'نقدی', icon_name: tagIcon }
     ]
 
-    const handleAddcart = async (courseId: number) => {
-        const existCourse = cartItems?.courses.some(item => item.course_id === courseId)
-        if (!existCourse) {
-            await addCart(courseId)
-            toast.success('دوره به سبد خرید اضافه شد', {
-                duration: 4000,
-                position: 'top-center'
-            })
-        } else {
-            toast.error('این دوره در سبد خرید وجود دارد', {
-                duration: 4000,
-                position: 'top-center'
-            })
-        }
+    const handleAddcart = (courseId: number) => {
+        startTransition(async () => {
+            try {
+                await addCartAction(courseId)
+                refetchCart()
+                toast.success("دوره به سبد خرید اضافه شد")
+            } catch {
+                toast.error("دوره در سبد خرید وجود دارد")
+            }
+        })
 
     }
     return (
@@ -67,8 +66,14 @@ function CourseShopping({ course }: { course: courseType }) {
                     <button
                         onClick={() => handleAddcart(course.id)}
                         className="flex-1 flex items-center justify-center gap-2 bg-sky-500 text-white py-3 px-4 rounded-md cursor-pointer hover:bg-sky-600 duration-200">
-                        <Icon className="text-2xl" icon={cartIcon} />
-                        <span className="font-medium text-lg">افزودن به سبد خرید</span>
+                        {isPending ? (
+                            <Icon className="text-2xl" icon="svg-spinners:gooey-balls-1" />
+                        ) : (
+                            <>
+                                <Icon className="text-2xl" icon={cartIcon} />
+                                <p className="font-medium text-lg">افزودن به سبد خرید</p>
+                            </>
+                        )}
                     </button>
                     {/* <button
                         className="flex items-center p-3 rounded-md bg-sky-50 border border-sky-500 text-sky-500 cursor-pointer hover:bg-sky-100 duration-200 dark:bg-gray-800 dark:hover:bg-gray-900">

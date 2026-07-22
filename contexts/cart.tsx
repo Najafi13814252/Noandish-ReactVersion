@@ -1,16 +1,14 @@
 'use client'
 
-import { cartServices } from "@/services/cart"
-import { CartItemsType, CartType } from "@/types/cart"
-import { createContext, useEffect, useState } from "react"
+import { cartItemsAction } from "@/actions/cart-action"
+import { CartType } from "@/types/cart"
+import { createContext, useCallback, useEffect, useMemo, useState } from "react"
 
 type CartContextType = {
     cartItems: CartType
-    addCart: (courseId: number) => Promise<void>
-    deleteCart: (courseId: number) => Promise<void>
+    refetchCart: () => Promise<void>
     totalPrice: number
     profit: number
-    loading: boolean
 }
 
 export const CartContext = createContext<CartContextType>({} as CartContextType)
@@ -20,16 +18,11 @@ function CartProvider({ children }: { children: React.ReactNode }) {
         courses: [],
         total: ''
     })
-    const [loading, setLoading] = useState(false)
 
-    useEffect(() => {
-        getCart()
-    }, [])
-
-    const getCart = async () => {
+    const refetchCart = useCallback(async () => {
         try {
-            const cart = await cartServices.getAll()
-            setCartItems(cart || {
+            const result = await cartItemsAction()
+            setCartItems(result || {
                 courses: [],
                 total: '0'
             })
@@ -39,28 +32,22 @@ function CartProvider({ children }: { children: React.ReactNode }) {
                 total: '0'
             })
         }
-    }
+    }, [])
 
-    const addCart = async (courseId: number) => {
-        await cartServices.addCart(courseId)
-        getCart()
-    }
+    useEffect(() => {
+        refetchCart()
+    }, [refetchCart])
 
-    const deleteCart = async (courseId: number) => {
-        setLoading(true)
-        try {
-            await cartServices.deleteCart(courseId)
-            getCart()
-        } finally {
-            setLoading(false)
-        }
-    }
 
-    const totalPrice = cartItems?.courses.map(item => item.price).reduce((total, current) => total + current, 0) || 0
+    const totalPrice = useMemo(
+        () => cartItems?.courses.reduce((sum, item) => sum + item.price, 0) || 0,
+        [cartItems]
+    )
+    
     const profit: number = totalPrice - Number(cartItems?.total)
 
     return (
-        <CartContext.Provider value={{ cartItems, addCart, deleteCart, totalPrice, profit, loading }}>
+        <CartContext.Provider value={{ cartItems, totalPrice, profit, refetchCart }}>
             {children}
         </CartContext.Provider>
     )

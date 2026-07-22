@@ -2,26 +2,31 @@
 
 import { Icon } from "@iconify/react"
 import trashIcon from "@iconify-icons/solar/trash-bin-minimalistic-linear"
-import { useContext } from "react"
+import { useContext, useTransition } from "react"
 import { CartContext } from "@/contexts/cart"
 import Modal from "@/components/modals/Modal"
 import useDeleteModal from "@/hooks/useDeleteModal"
 import toast from "react-hot-toast"
+import { deleteCartAction } from "@/actions/cart-action"
 
 
 function CartItems() {
+    const [isPending, startTransition] = useTransition()
 
-    const { cartItems, deleteCart, loading } = useContext(CartContext)
+    const { cartItems, refetchCart } = useContext(CartContext)
 
-    const {courseTitle, itemId, showDeleteModal, isOpen, closeModal} = useDeleteModal()
+    const { courseTitle, itemId, showDeleteModal, isOpen, closeModal } = useDeleteModal()
 
     const handleDeleteCart = async () => {
-        try {
-            await deleteCart(itemId)
-        } finally {
-            closeModal()
-            toast.success('دوره از سبد خرید حذف شد')
-        }
+        startTransition(async () => {
+            try {
+                await deleteCartAction(itemId)
+                refetchCart()
+            } finally {
+                closeModal()
+                toast.success('دوره از سبد خرید حذف شد')
+            }
+        })
     }
 
     return (
@@ -62,8 +67,8 @@ function CartItems() {
                     <p className="font-medium text-center">{`آیا میخواهید دوره " ${courseTitle} " را از سبد خرید خود حذف کنید؟`}</p>
                     <button className="text-white bg-red-500 font-medium w-full text-lg py-2 rounded-md cursor-pointer hover:bg-red-600 duration-200"
                         onClick={handleDeleteCart}>
-                            {loading ? <Icon icon='svg-spinners:gooey-balls-1' className="mx-auto text-2xl"/> : 'حذف'}
-                        </button>
+                        {isPending ? <Icon icon='svg-spinners:gooey-balls-1' className="mx-auto text-2xl" /> : 'حذف'}
+                    </button>
                 </div>
             </Modal>
         </>
