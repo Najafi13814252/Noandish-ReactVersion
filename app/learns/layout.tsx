@@ -17,16 +17,12 @@ export default function PanelLayout({ children }: Readonly<{ children: React.Rea
         <h1 className="text-3xl text-main-100 font-lalezar mr-2 dark:text-white">همه دوره‌ها</h1>
         <div className="flex w-full h-full gap-4">
           <div className="hidden lg:block">
-            <Suspense fallback={null}>
-              <FilterSection />
-            </Suspense>
+            <FilterSection />
           </div>
 
           <div className="flex flex-col w-full">
             <div className="hidden lg:block">
-              <Suspense fallback={null}>
-                <SortSection />
-              </Suspense>
+              <SortSection />
             </div>
             <main className="h-full">
               {children}

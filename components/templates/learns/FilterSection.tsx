@@ -2,28 +2,34 @@
 
 import { Icon } from "@iconify/react"
 import filterIcon from '@iconify-icons/solar/filter-linear'
-import Link from "next/link"
-import { updateSearchParams } from "@/utils/updateSearchParams"
+import Form from 'next/form'
 import { useSearchParams } from "next/navigation"
+import { useRef } from "react"
 
-function FilterSection({ onSelect }: { onSelect?: () => void }) {
+function FilterSection() {
     const searchParams = useSearchParams()
+    const formRef = useRef<HTMLFormElement>(null)
 
+    // خواندن مقادیر از url 
     const type = searchParams.get('type')
     const level = searchParams.get('level')
     const points = searchParams.get('points')
+    const sort = searchParams.get('sort')
 
-    const closeFilterWithSelect = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        const target = e.target as HTMLElement;
-
-        if (target.closest("a")) {
-            onSelect?.();
-        }
+    const handleChange = () => {
+        formRef.current?.requestSubmit()
     }
 
     return (
-        <aside className="flex flex-col divide-y divide-gray-200 gap-4 border border-gray-300 rounded-2xl w-full lg:w-60 h-full p-4 bg-white dark:bg-darkMode dark:border-gray-700 dark:text-white dark:divide-gray-800"
-            onClick={closeFilterWithSelect}>
+        <Form
+            ref={formRef}
+            action="/learns"
+            onChange={handleChange}
+            className="flex flex-col divide-y divide-gray-200 gap-4 border border-gray-300 rounded-2xl w-full lg:w-60 h-full p-4 bg-white dark:bg-darkMode dark:border-gray-700 dark:text-white dark:divide-gray-800"
+        >
+
+            {sort && <input type="hidden" name="sort" value={sort} />}
+
             <section className="pb-4 flex items-center gap-2">
                 <Icon className="text-xl" icon={filterIcon} />
                 <span className="text-lg font-medium">فیلترها</span>
@@ -32,60 +38,53 @@ function FilterSection({ onSelect }: { onSelect?: () => void }) {
             {/* امتیاز دوره */}
             <section className="text-2xl flex flex-col gap-4 pb-4">
                 <span className="text-base text-main-100 font-medium">امتیاز دوره</span>
-                <Link href={`/learns?${updateSearchParams(searchParams, 'points', '4.5')}`}
-                    className="flex items-center">
-                    <input checked={points === '4.5'} readOnly id="checkbox-1" type="checkbox" value="" className="filterSection-label-checkbox" />
-                    <label htmlFor="checkbox-1" className="filterSection-input-checkbox">4.5 به بالا</label>
-                </Link>
-                <Link href={`/learns?${updateSearchParams(searchParams, 'points', '4.0')}`}
-                    className="flex items-center">
-                    <input checked={points === '4.0'} readOnly id="checkbox-2" type="checkbox" value="" className="filterSection-label-checkbox" />
-                    <label htmlFor="checkbox-2" className="filterSection-input-checkbox">4.0 به بالا</label>
-                </Link>
-                <Link href={`/learns?${updateSearchParams(searchParams, 'points', '3.5')}`}
-                    className="flex items-center">
-                    <input checked={points === '3.5'} readOnly id="checkbox-3" type="checkbox" value="" className="filterSection-label-checkbox" />
-                    <label htmlFor="checkbox-3" className="filterSection-input-checkbox">3.5 به بالا</label>
-                </Link>
-                <Link href={`/learns?${updateSearchParams(searchParams, 'points', '3.0')}`}
-                    className="flex items-center">
-                    <input checked={points === '3.0'} readOnly id="checkbox-4" type="checkbox" value="" className="filterSection-label-checkbox" />
-                    <label htmlFor="checkbox-4" className="filterSection-input-checkbox">3.0 به بالا</label>
-                </Link>
+                {['4.5', '4.0', '3.5', '3.0'].map((val, i) => (
+                    <label key={val} htmlFor={`checkbox-${i + 1}`} className="flex items-center">
+                        <input
+                            type="checkbox"
+                            name="points"
+                            value={val}
+                            defaultChecked={points === val}
+                            id={`checkbox-${i + 1}`}
+                            className="filterSection-label-checkbox"
+                        />
+                        <span className="filterSection-input-checkbox">{val} به بالا</span>
+                    </label>
+                ))}
             </section>
 
             {/* سطح دوره */}
             <section className="text-2xl flex flex-col gap-4 pb-4">
                 <span className="text-base text-main-100 font-medium">سطح دوره</span>
-                <Link href="/learns?level=مقدماتی" className="flex items-center">
-                    <input checked={level === 'مقدماتی'} readOnly id="checkbox-5" type="checkbox" value="" className="filterSection-label-checkbox" />
-                    <label htmlFor="checkbox-5" className="filterSection-input-checkbox">مقدماتی</label>
-                </Link>
-                <Link href="/learns?level=پیشرفته" className="flex items-center">
-                    <input checked={level === 'پیشرفته'} readOnly id="checkbox-6" type="checkbox" value="" className="filterSection-label-checkbox" />
-                    <label htmlFor="checkbox-6" className="filterSection-input-checkbox">پیشرفته</label>
-                </Link>
-                <Link href="/learns?level=مقدماتی تا پیشرفته" className="flex items-center">
-                    <input checked={level === 'مقدماتی تا پیشرفته'} readOnly id="checkbox-7" type="checkbox" value="" className="filterSection-label-checkbox" />
-                    <label htmlFor="checkbox-7" className="filterSection-input-checkbox">مقدماتی تا پیشرفته</label>
-                </Link>
+                {['مقدماتی', 'پیشرفته', 'مقدماتی تا پیشرفته'].map((val, i) => (
+                    <label key={val} htmlFor={`checkbox-${i + 5}`} className="flex items-center">
+                        <input
+                            type="checkbox"
+                            name="level"
+                            value={val}
+                            defaultChecked={level === val}
+                            id={`checkbox-${i + 5}`}
+                            className="filterSection-label-checkbox"
+                        />
+                        <span className="filterSection-input-checkbox">{val}</span>
+                    </label>
+                ))}
             </section>
 
             {/* نوع دوره */}
             <section className="text-2xl flex flex-col gap-4 pb-4">
                 <span className="text-base text-main-100 font-medium">نوع دوره</span>
-                <Link href={`/learns?${updateSearchParams(searchParams, 'type', 'free')}`}
-                    className="flex items-center">
-                    <input checked={type === 'free'} readOnly id="checkbox-8" type="checkbox" value="" className="filterSection-label-checkbox" />
-                    <label htmlFor="checkbox-8" className="filterSection-input-checkbox">رایگان</label>
-                </Link>
-                <Link href={`/learns?${updateSearchParams(searchParams, 'type', 'paid')}`}
-                    className="flex items-center">
-                    <input checked={type === 'paid'} readOnly id="checkbox-9" type="checkbox" value="" className="filterSection-label-checkbox" />
-                    <label htmlFor="checkbox-9" className="filterSection-input-checkbox">نقدی</label>
-                </Link>
+                <label htmlFor="checkbox-8" className="flex items-center">
+                    <input type="checkbox" name="type" value="free" defaultChecked={type === 'free'} id="checkbox-8" className="filterSection-label-checkbox" />
+                    <span className="filterSection-input-checkbox">رایگان</span>
+                </label>
+                <label htmlFor="checkbox-9" className="flex items-center">
+                    <input type="checkbox" name="type" value="paid" defaultChecked={type === 'paid'} id="checkbox-9" className="filterSection-label-checkbox" />
+                    <span className="filterSection-input-checkbox">نقدی</span>
+                </label>
             </section>
-        </aside>
+        </Form>
+
     )
 }
 

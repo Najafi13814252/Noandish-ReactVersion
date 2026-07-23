@@ -19,11 +19,11 @@ async function LearnsByCategory({ searchParams, params }: {
 
     console.log(param.toString())
 
-    const courses: courseType[] = await apiFetch(`/courses/category/${slug}?${param.toString()}`)
+    const { data } = await apiFetch(`/courses/category/${slug}?${param.toString()}`)
 
     return (
         <div className="grid grid-cols-4 gap-x-5 gap-y-10">
-            {courses.map(course => (
+            {data.map((course: courseType) => (
                 <Card key={course.id} {...course} />
             ))}
         </div>

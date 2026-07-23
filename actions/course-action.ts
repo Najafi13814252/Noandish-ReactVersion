@@ -4,8 +4,8 @@ import { apiFetch } from "@/services/api"
 import { courseType } from "@/types/course"
 import { revalidatePath } from "next/cache"
 
-export async function courseAction() {
-    const { data: courses } = await apiFetch('/courses', {
+export async function courseAction(queryParam?: URLSearchParams) {
+    const { data: courses } = await apiFetch(`/courses${'?' + queryParam?.toString()}`, {
         method: "GET"
     })
 
@@ -13,7 +13,7 @@ export async function courseAction() {
     const discountCourses = courses.filter((course: courseType) => course.discount !== 0 && course.discount !== 100)
     const freeCourses = courses.filter((course: courseType) => course.discount === 100)
 
-    return { popularCourses, discountCourses, freeCourses }
+    return { popularCourses, discountCourses, freeCourses, courses }
 }
 
 export async function courseByIdAction(courseId: number) {
