@@ -12,7 +12,7 @@ function FilterSection() {
 
     // خواندن مقادیر از url 
     const type = searchParams.get('type')
-    const level = searchParams.get('level')
+    // const level = searchParams.get('level')
     const points = searchParams.get('points')
     const sort = searchParams.get('sort')
 
@@ -54,7 +54,7 @@ function FilterSection() {
             </section>
 
             {/* سطح دوره */}
-            <section className="text-2xl flex flex-col gap-4 pb-4">
+            {/* <section className="text-2xl flex flex-col gap-4 pb-4">
                 <span className="text-base text-main-100 font-medium">سطح دوره</span>
                 {['مقدماتی', 'پیشرفته', 'مقدماتی تا پیشرفته'].map((val, i) => (
                     <label key={val} htmlFor={`checkbox-${i + 5}`} className="flex items-center">
@@ -69,7 +69,7 @@ function FilterSection() {
                         <span className="filterSection-input-checkbox">{val}</span>
                     </label>
                 ))}
-            </section>
+            </section> */}
 
             {/* نوع دوره */}
             <section className="text-2xl flex flex-col gap-4 pb-4">

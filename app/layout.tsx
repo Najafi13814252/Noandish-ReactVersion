@@ -58,7 +58,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" dir="rtl">
+    <html lang="en" dir="rtl" suppressHydrationWarning>
+      
       <body className={`${arad.className} dark:bg-darkMode`}>
         <ThemeProvider>
           <AuthProvider>

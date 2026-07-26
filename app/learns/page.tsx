@@ -1,4 +1,5 @@
 import { courseAction } from "@/actions/course-action"
+import SkeletonCard from "@/components/loading/SkeletonCard"
 import Card from "@/components/modules/Card"
 import MobileFilterSection from "@/components/templates/learns/MobileFilterSection"
 import MobileSortSection from "@/components/templates/learns/MobileSortSection"

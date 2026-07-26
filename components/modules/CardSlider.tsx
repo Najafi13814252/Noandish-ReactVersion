@@ -6,7 +6,15 @@ import SkeletonCard from "@/components/loading/SkeletonCard"
 
 const CardSliderInner = dynamic(() => import("./CardSliderInner"), {
     ssr: false,
-    loading: () => <SkeletonCard />
+    loading: () => (
+        <div className="grid grid-cols-5 gap-4 my-8 mr-8 ml-4">
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+        </div>
+    )
 })
 
 function CardSlider({ courses }: { courses: courseType[] }) {
